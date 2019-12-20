@@ -328,7 +328,9 @@ class MultiMetricCriteria(Model):
     :param metric_namespace: Namespace of the metric.
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types.
-    :type time_aggregation: object
+     Possible values include: 'Average', 'Minimum', 'Maximum', 'Total'
+    :type time_aggregation: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.AggregationType
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
@@ -348,7 +350,7 @@ class MultiMetricCriteria(Model):
         'name': {'key': 'name', 'type': 'str'},
         'metric_name': {'key': 'metricName', 'type': 'str'},
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
-        'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
+        'time_aggregation': {'key': 'timeAggregation', 'type': 'str'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
     }
@@ -383,19 +385,24 @@ class DynamicMetricCriteria(MultiMetricCriteria):
     :param metric_namespace: Namespace of the metric.
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types.
-    :type time_aggregation: object
+     Possible values include: 'Average', 'Minimum', 'Maximum', 'Total'
+    :type time_aggregation: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.AggregationType
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
     :param criterion_type: Required. Constant filled by server.
     :type criterion_type: str
     :param operator: Required. The operator used to compare the metric value
-     against the threshold.
-    :type operator: object
+     against the threshold. Possible values include: 'GreaterThan', 'LessThan',
+     'GreaterOrLessThan'
+    :type operator: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.DynamicThresholdOperator
     :param alert_sensitivity: Required. The extent of deviation required to
      trigger an alert. This will affect how tight the threshold is to the
-     metric series pattern.
-    :type alert_sensitivity: object
+     metric series pattern. Possible values include: 'Low', 'Medium', 'High'
+    :type alert_sensitivity: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.DynamicThresholdSensitivity
     :param failing_periods: Required. The minimum number of violations
      required within the selected lookback time window required to raise an
      alert.
@@ -422,11 +429,11 @@ class DynamicMetricCriteria(MultiMetricCriteria):
         'name': {'key': 'name', 'type': 'str'},
         'metric_name': {'key': 'metricName', 'type': 'str'},
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
-        'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
+        'time_aggregation': {'key': 'timeAggregation', 'type': 'str'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
-        'operator': {'key': 'operator', 'type': 'object'},
-        'alert_sensitivity': {'key': 'alertSensitivity', 'type': 'object'},
+        'operator': {'key': 'operator', 'type': 'str'},
+        'alert_sensitivity': {'key': 'alertSensitivity', 'type': 'str'},
         'failing_periods': {'key': 'failingPeriods', 'type': 'DynamicThresholdFailingPeriods'},
         'ignore_data_before': {'key': 'ignoreDataBefore', 'type': 'iso-8601'},
     }
@@ -1049,14 +1056,18 @@ class MetricCriteria(MultiMetricCriteria):
     :param metric_namespace: Namespace of the metric.
     :type metric_namespace: str
     :param time_aggregation: Required. the criteria time aggregation types.
-    :type time_aggregation: object
+     Possible values include: 'Average', 'Minimum', 'Maximum', 'Total'
+    :type time_aggregation: str or
+     ~azure.mgmt.monitor.v2018_03_01.models.AggregationType
     :param dimensions: List of dimension conditions.
     :type dimensions:
      list[~azure.mgmt.monitor.v2018_03_01.models.MetricDimension]
     :param criterion_type: Required. Constant filled by server.
     :type criterion_type: str
-    :param operator: Required. the criteria operator.
-    :type operator: object
+    :param operator: Required. the criteria operator. Possible values include:
+     'Equals', 'NotEquals', 'GreaterThan', 'GreaterThanOrEqual', 'LessThan',
+     'LessThanOrEqual'
+    :type operator: str or ~azure.mgmt.monitor.v2018_03_01.models.Operator
     :param threshold: Required. the criteria threshold value that activates
      the alert.
     :type threshold: float
@@ -1076,10 +1087,10 @@ class MetricCriteria(MultiMetricCriteria):
         'name': {'key': 'name', 'type': 'str'},
         'metric_name': {'key': 'metricName', 'type': 'str'},
         'metric_namespace': {'key': 'metricNamespace', 'type': 'str'},
-        'time_aggregation': {'key': 'timeAggregation', 'type': 'object'},
+        'time_aggregation': {'key': 'timeAggregation', 'type': 'str'},
         'dimensions': {'key': 'dimensions', 'type': '[MetricDimension]'},
         'criterion_type': {'key': 'criterionType', 'type': 'str'},
-        'operator': {'key': 'operator', 'type': 'object'},
+        'operator': {'key': 'operator', 'type': 'str'},
         'threshold': {'key': 'threshold', 'type': 'float'},
     }
 
@@ -1225,3 +1236,35 @@ class WebhookReceiver(Model):
         super(WebhookReceiver, self).__init__(**kwargs)
         self.name = name
         self.service_uri = service_uri
+
+
+class WebtestLocationAvailabilityCriteria(Model):
+    """Specifies the metric alert rule criteria for a web test resource.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param web_test_id: Required. The web test Id.
+    :type web_test_id: str
+    :param component_id: Required. The Application Insights resource Id.
+    :type component_id: str
+    :param failed_location_count: Required. The number of failed locations.
+    :type failed_location_count: float
+    """
+
+    _validation = {
+        'web_test_id': {'required': True},
+        'component_id': {'required': True},
+        'failed_location_count': {'required': True},
+    }
+
+    _attribute_map = {
+        'web_test_id': {'key': 'webTestId', 'type': 'str'},
+        'component_id': {'key': 'componentId', 'type': 'str'},
+        'failed_location_count': {'key': 'failedLocationCount', 'type': 'float'},
+    }
+
+    def __init__(self, *, web_test_id: str, component_id: str, failed_location_count: float, **kwargs) -> None:
+        super(WebtestLocationAvailabilityCriteria, self).__init__(**kwargs)
+        self.web_test_id = web_test_id
+        self.component_id = component_id
+        self.failed_location_count = failed_location_count

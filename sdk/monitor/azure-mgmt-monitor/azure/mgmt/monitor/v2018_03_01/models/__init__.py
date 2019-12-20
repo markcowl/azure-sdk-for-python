@@ -38,6 +38,7 @@ try:
     from ._models_py3 import SmsReceiver
     from ._models_py3 import VoiceReceiver
     from ._models_py3 import WebhookReceiver
+    from ._models_py3 import WebtestLocationAvailabilityCriteria
 except (SyntaxError, ImportError):
     from ._models import ActionGroupPatchBody
     from ._models import ActionGroupResource
@@ -67,10 +68,15 @@ except (SyntaxError, ImportError):
     from ._models import SmsReceiver
     from ._models import VoiceReceiver
     from ._models import WebhookReceiver
+    from ._models import WebtestLocationAvailabilityCriteria
 from ._paged_models import ActionGroupResourcePaged
 from ._paged_models import MetricAlertResourcePaged
 from ._monitor_management_client_enums import (
     ReceiverStatus,
+    Operator,
+    AggregationType,
+    DynamicThresholdOperator,
+    DynamicThresholdSensitivity,
 )
 
 __all__ = [
@@ -102,7 +108,12 @@ __all__ = [
     'SmsReceiver',
     'VoiceReceiver',
     'WebhookReceiver',
+    'WebtestLocationAvailabilityCriteria',
     'ActionGroupResourcePaged',
     'MetricAlertResourcePaged',
     'ReceiverStatus',
+    'Operator',
+    'AggregationType',
+    'DynamicThresholdOperator',
+    'DynamicThresholdSensitivity',
 ]
