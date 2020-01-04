@@ -247,7 +247,7 @@ class ApplicationDefinition(GenericResource):
     :type display_name: str
     :param is_enabled: A value indicating whether the package is enabled or
      not.
-    :type is_enabled: str
+    :type is_enabled: bool
     :param authorizations: Required. The managed application provider
      authorizations.
     :type authorizations:
@@ -291,7 +291,7 @@ class ApplicationDefinition(GenericResource):
         'identity': {'key': 'identity', 'type': 'Identity'},
         'lock_level': {'key': 'properties.lockLevel', 'type': 'ApplicationLockLevel'},
         'display_name': {'key': 'properties.displayName', 'type': 'str'},
-        'is_enabled': {'key': 'properties.isEnabled', 'type': 'str'},
+        'is_enabled': {'key': 'properties.isEnabled', 'type': 'bool'},
         'authorizations': {'key': 'properties.authorizations', 'type': '[ApplicationProviderAuthorization]'},
         'artifacts': {'key': 'properties.artifacts', 'type': '[ApplicationArtifact]'},
         'description': {'key': 'properties.description', 'type': 'str'},
