@@ -1404,8 +1404,9 @@ class NetworkWatchersOperations(object):
 
     def get_azure_reachability_report(
             self, resource_group_name, network_watcher_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Gets the relative latency score for internet service providers from a
-        specified location to Azure regions.
+        """NOTE: This feature is currently in preview and still being tested for
+        stability. Gets the relative latency score for internet service
+        providers from a specified location to Azure regions.
 
         :param resource_group_name: The name of the network watcher resource
          group.
@@ -1509,8 +1510,9 @@ class NetworkWatchersOperations(object):
 
     def list_available_providers(
             self, resource_group_name, network_watcher_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
-        """Lists all available internet service providers for a specified Azure
-        region.
+        """NOTE: This feature is currently in preview and still being tested for
+        stability. Lists all available internet service providers for a
+        specified Azure region.
 
         :param resource_group_name: The name of the network watcher resource
          group.
