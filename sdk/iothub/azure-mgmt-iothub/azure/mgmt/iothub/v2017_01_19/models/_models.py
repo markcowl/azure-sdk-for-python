@@ -871,13 +871,16 @@ class RegistryStatistics(Model):
     sending a request.
 
     :ivar total_device_count: The total count of devices in the identity
-     registry.
+     registry. This API is eventually consistent and may not reflect correct
+     device count immediately.
     :vartype total_device_count: long
     :ivar enabled_device_count: The count of enabled devices in the identity
-     registry.
+     registry. This API is eventually consistent and may not reflect correct
+     device count immediately.
     :vartype enabled_device_count: long
     :ivar disabled_device_count: The count of disabled devices in the identity
-     registry.
+     registry. This API is eventually consistent and may not reflect correct
+     device count immediately.
     :vartype disabled_device_count: long
     """
 
