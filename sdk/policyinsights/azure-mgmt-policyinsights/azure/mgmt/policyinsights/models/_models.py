@@ -533,36 +533,6 @@ class PolicyEvent(Model):
         self.principal_oid = kwargs.get('principal_oid', None)
 
 
-class PolicyEventsQueryResults(Model):
-    """Query results.
-
-    :param odatacontext: OData context string; used by OData clients to
-     resolve type information based on metadata.
-    :type odatacontext: str
-    :param odatacount: OData entity count; represents the number of policy
-     event records returned.
-    :type odatacount: int
-    :param value: Query results.
-    :type value: list[~azure.mgmt.policyinsights.models.PolicyEvent]
-    """
-
-    _validation = {
-        'odatacount': {'minimum': 0},
-    }
-
-    _attribute_map = {
-        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
-        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
-        'value': {'key': 'value', 'type': '[PolicyEvent]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PolicyEventsQueryResults, self).__init__(**kwargs)
-        self.odatacontext = kwargs.get('odatacontext', None)
-        self.odatacount = kwargs.get('odatacount', None)
-        self.value = kwargs.get('value', None)
-
-
 class PolicyGroupSummary(Model):
     """Policy definition group summary.
 
@@ -807,36 +777,6 @@ class PolicyState(Model):
         self.compliance_state = kwargs.get('compliance_state', None)
         self.policy_evaluation_details = kwargs.get('policy_evaluation_details', None)
         self.policy_definition_group_names = kwargs.get('policy_definition_group_names', None)
-
-
-class PolicyStatesQueryResults(Model):
-    """Query results.
-
-    :param odatacontext: OData context string; used by OData clients to
-     resolve type information based on metadata.
-    :type odatacontext: str
-    :param odatacount: OData entity count; represents the number of policy
-     state records returned.
-    :type odatacount: int
-    :param value: Query results.
-    :type value: list[~azure.mgmt.policyinsights.models.PolicyState]
-    """
-
-    _validation = {
-        'odatacount': {'minimum': 0},
-    }
-
-    _attribute_map = {
-        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
-        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
-        'value': {'key': 'value', 'type': '[PolicyState]'},
-    }
-
-    def __init__(self, **kwargs):
-        super(PolicyStatesQueryResults, self).__init__(**kwargs)
-        self.odatacontext = kwargs.get('odatacontext', None)
-        self.odatacount = kwargs.get('odatacount', None)
-        self.value = kwargs.get('value', None)
 
 
 class PolicyTrackedResource(Model):

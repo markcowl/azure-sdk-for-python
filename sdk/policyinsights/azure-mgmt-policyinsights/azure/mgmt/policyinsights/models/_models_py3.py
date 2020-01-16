@@ -533,36 +533,6 @@ class PolicyEvent(Model):
         self.principal_oid = principal_oid
 
 
-class PolicyEventsQueryResults(Model):
-    """Query results.
-
-    :param odatacontext: OData context string; used by OData clients to
-     resolve type information based on metadata.
-    :type odatacontext: str
-    :param odatacount: OData entity count; represents the number of policy
-     event records returned.
-    :type odatacount: int
-    :param value: Query results.
-    :type value: list[~azure.mgmt.policyinsights.models.PolicyEvent]
-    """
-
-    _validation = {
-        'odatacount': {'minimum': 0},
-    }
-
-    _attribute_map = {
-        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
-        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
-        'value': {'key': 'value', 'type': '[PolicyEvent]'},
-    }
-
-    def __init__(self, *, odatacontext: str=None, odatacount: int=None, value=None, **kwargs) -> None:
-        super(PolicyEventsQueryResults, self).__init__(**kwargs)
-        self.odatacontext = odatacontext
-        self.odatacount = odatacount
-        self.value = value
-
-
 class PolicyGroupSummary(Model):
     """Policy definition group summary.
 
@@ -807,36 +777,6 @@ class PolicyState(Model):
         self.compliance_state = compliance_state
         self.policy_evaluation_details = policy_evaluation_details
         self.policy_definition_group_names = policy_definition_group_names
-
-
-class PolicyStatesQueryResults(Model):
-    """Query results.
-
-    :param odatacontext: OData context string; used by OData clients to
-     resolve type information based on metadata.
-    :type odatacontext: str
-    :param odatacount: OData entity count; represents the number of policy
-     state records returned.
-    :type odatacount: int
-    :param value: Query results.
-    :type value: list[~azure.mgmt.policyinsights.models.PolicyState]
-    """
-
-    _validation = {
-        'odatacount': {'minimum': 0},
-    }
-
-    _attribute_map = {
-        'odatacontext': {'key': '@odata\\.context', 'type': 'str'},
-        'odatacount': {'key': '@odata\\.count', 'type': 'int'},
-        'value': {'key': 'value', 'type': '[PolicyState]'},
-    }
-
-    def __init__(self, *, odatacontext: str=None, odatacount: int=None, value=None, **kwargs) -> None:
-        super(PolicyStatesQueryResults, self).__init__(**kwargs)
-        self.odatacontext = odatacontext
-        self.odatacount = odatacount
-        self.value = value
 
 
 class PolicyTrackedResource(Model):
