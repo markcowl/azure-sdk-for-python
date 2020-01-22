@@ -6079,6 +6079,10 @@ class ExpressRouteCircuitConnection(SubResource):
     :type address_prefix: str
     :param authorization_key: The authorization key.
     :type authorization_key: str
+    :param ipv6_circuit_connection_config: IPv6 Address PrefixProperties of
+     the express route circuit connection.
+    :type ipv6_circuit_connection_config:
+     ~azure.mgmt.network.v2019_11_01.models.Ipv6CircuitConnectionConfig
     :param circuit_connection_status: Express Route Circuit connection state.
      Possible values include: 'Connected', 'Connecting', 'Disconnected'
     :type circuit_connection_status: str or
@@ -6110,6 +6114,7 @@ class ExpressRouteCircuitConnection(SubResource):
         'peer_express_route_circuit_peering': {'key': 'properties.peerExpressRouteCircuitPeering', 'type': 'SubResource'},
         'address_prefix': {'key': 'properties.addressPrefix', 'type': 'str'},
         'authorization_key': {'key': 'properties.authorizationKey', 'type': 'str'},
+        'ipv6_circuit_connection_config': {'key': 'properties.ipv6CircuitConnectionConfig', 'type': 'Ipv6CircuitConnectionConfig'},
         'circuit_connection_status': {'key': 'properties.circuitConnectionStatus', 'type': 'str'},
         'provisioning_state': {'key': 'properties.provisioningState', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
@@ -6123,6 +6128,7 @@ class ExpressRouteCircuitConnection(SubResource):
         self.peer_express_route_circuit_peering = kwargs.get('peer_express_route_circuit_peering', None)
         self.address_prefix = kwargs.get('address_prefix', None)
         self.authorization_key = kwargs.get('authorization_key', None)
+        self.ipv6_circuit_connection_config = kwargs.get('ipv6_circuit_connection_config', None)
         self.circuit_connection_status = kwargs.get('circuit_connection_status', None)
         self.provisioning_state = None
         self.name = kwargs.get('name', None)
@@ -8744,6 +8750,29 @@ class IpTag(Model):
         super(IpTag, self).__init__(**kwargs)
         self.ip_tag_type = kwargs.get('ip_tag_type', None)
         self.tag = kwargs.get('tag', None)
+
+
+class Ipv6CircuitConnectionConfig(Model):
+    """IPv6 Circuit Connection properties for Global Reach.
+
+    :param address_prefix: /125 IP address space to carve out Customer
+     addresses for Global Reach.
+    :type address_prefix: str
+    :param circuit_connection_status: Express Route Circuit connection state.
+     Possible values include: 'Connected', 'Connecting', 'Disconnected'
+    :type circuit_connection_status: str or
+     ~azure.mgmt.network.v2019_11_01.models.CircuitConnectionStatus
+    """
+
+    _attribute_map = {
+        'address_prefix': {'key': 'addressPrefix', 'type': 'str'},
+        'circuit_connection_status': {'key': 'circuitConnectionStatus', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(Ipv6CircuitConnectionConfig, self).__init__(**kwargs)
+        self.address_prefix = kwargs.get('address_prefix', None)
+        self.circuit_connection_status = kwargs.get('circuit_connection_status', None)
 
 
 class Ipv6ExpressRouteCircuitPeeringConfig(Model):

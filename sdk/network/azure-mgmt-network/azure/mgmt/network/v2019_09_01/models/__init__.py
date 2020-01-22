@@ -195,6 +195,7 @@ try:
     from ._models_py3 import IpGroup
     from ._models_py3 import IpsecPolicy
     from ._models_py3 import IpTag
+    from ._models_py3 import Ipv6CircuitConnectionConfig
     from ._models_py3 import Ipv6ExpressRouteCircuitPeeringConfig
     from ._models_py3 import LoadBalancer
     from ._models_py3 import LoadBalancerSku
@@ -554,6 +555,7 @@ except (SyntaxError, ImportError):
     from ._models import IpGroup
     from ._models import IpsecPolicy
     from ._models import IpTag
+    from ._models import Ipv6CircuitConnectionConfig
     from ._models import Ipv6ExpressRouteCircuitPeeringConfig
     from ._models import LoadBalancer
     from ._models import LoadBalancerSku
@@ -1113,6 +1115,7 @@ __all__ = [
     'IpGroup',
     'IpsecPolicy',
     'IpTag',
+    'Ipv6CircuitConnectionConfig',
     'Ipv6ExpressRouteCircuitPeeringConfig',
     'LoadBalancer',
     'LoadBalancerSku',
