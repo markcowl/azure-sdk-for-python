@@ -340,14 +340,14 @@ class TagsOperations(object):
     list.metadata = {'url': '/subscriptions/{subscriptionId}/tagNames'}
 
     def resource_create(
-            self, scope, parameters, custom_headers=None, raw=False, **operation_config):
+            self, scope, properties, custom_headers=None, raw=False, **operation_config):
         """Create or Replace existing tags with passing in tags.
 
         :param scope: The resource scope.
         :type scope: str
-        :param parameters: Parameters for creating multiple tags.
-        :type parameters:
-         ~azure.mgmt.resource.resources.v2019_10_01.models.TagsResource
+        :param properties: tags property.
+        :type properties:
+         ~azure.mgmt.resource.resources.v2019_10_01.models.Tags
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
@@ -358,6 +358,8 @@ class TagsOperations(object):
          or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
+        parameters = models.TagsResource(properties=properties)
+
         # Construct URL
         url = self.resource_create.metadata['url']
         path_format_arguments = {

@@ -168,6 +168,8 @@ class Deployment(Model):
     :param properties: Required. The deployment properties.
     :type properties:
      ~azure.mgmt.resource.resources.v2019_10_01.models.DeploymentProperties
+    :param tags: Deployment tags
+    :type tags: dict[str, str]
     """
 
     _validation = {
@@ -177,12 +179,14 @@ class Deployment(Model):
     _attribute_map = {
         'location': {'key': 'location', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'DeploymentProperties'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
         super(Deployment, self).__init__(**kwargs)
         self.location = kwargs.get('location', None)
         self.properties = kwargs.get('properties', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class DeploymentExportResult(Model):
@@ -218,6 +222,8 @@ class DeploymentExtended(Model):
     :param properties: Deployment properties.
     :type properties:
      ~azure.mgmt.resource.resources.v2019_10_01.models.DeploymentPropertiesExtended
+    :param tags: Deployment tags
+    :type tags: dict[str, str]
     """
 
     _validation = {
@@ -232,6 +238,7 @@ class DeploymentExtended(Model):
         'type': {'key': 'type', 'type': 'str'},
         'location': {'key': 'location', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'DeploymentPropertiesExtended'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
@@ -241,6 +248,7 @@ class DeploymentExtended(Model):
         self.type = None
         self.location = kwargs.get('location', None)
         self.properties = kwargs.get('properties', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class DeploymentExtendedFilter(Model):
@@ -1423,6 +1431,8 @@ class ScopedDeployment(Model):
     :param properties: Required. The deployment properties.
     :type properties:
      ~azure.mgmt.resource.resources.v2019_10_01.models.DeploymentProperties
+    :param tags: Deployment tags
+    :type tags: dict[str, str]
     """
 
     _validation = {
@@ -1433,12 +1443,14 @@ class ScopedDeployment(Model):
     _attribute_map = {
         'location': {'key': 'location', 'type': 'str'},
         'properties': {'key': 'properties', 'type': 'DeploymentProperties'},
+        'tags': {'key': 'tags', 'type': '{str}'},
     }
 
     def __init__(self, **kwargs):
         super(ScopedDeployment, self).__init__(**kwargs)
         self.location = kwargs.get('location', None)
         self.properties = kwargs.get('properties', None)
+        self.tags = kwargs.get('tags', None)
 
 
 class Sku(Model):
@@ -1589,7 +1601,7 @@ class Tags(Model):
         self.tags = kwargs.get('tags', None)
 
 
-class TagsResource(Resource):
+class TagsResource(Model):
     """Tags for the resource.
 
     Variables are only populated by the server, and will be ignored when
@@ -1597,16 +1609,12 @@ class TagsResource(Resource):
 
     All required parameters must be populated in order to send to Azure.
 
-    :ivar id: Resource ID
+    :ivar id: The ID of the tags wrapper resource.
     :vartype id: str
-    :ivar name: Resource name
+    :ivar name: The name of the tags wrapper resource.
     :vartype name: str
-    :ivar type: Resource type
+    :ivar type: The type of the tags wrapper resource.
     :vartype type: str
-    :param location: Resource location
-    :type location: str
-    :param tags: Resource tags
-    :type tags: dict[str, str]
     :param properties: Required. tags property.
     :type properties: ~azure.mgmt.resource.resources.v2019_10_01.models.Tags
     """
@@ -1622,13 +1630,14 @@ class TagsResource(Resource):
         'id': {'key': 'id', 'type': 'str'},
         'name': {'key': 'name', 'type': 'str'},
         'type': {'key': 'type', 'type': 'str'},
-        'location': {'key': 'location', 'type': 'str'},
-        'tags': {'key': 'tags', 'type': '{str}'},
         'properties': {'key': 'properties', 'type': 'Tags'},
     }
 
     def __init__(self, **kwargs):
         super(TagsResource, self).__init__(**kwargs)
+        self.id = None
+        self.name = None
+        self.type = None
         self.properties = kwargs.get('properties', None)
 
 
