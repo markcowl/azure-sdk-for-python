@@ -16,8 +16,8 @@ from msrestazure.azure_exceptions import CloudError
 from .. import models
 
 
-class IoTSecuritySolutionsAnalyticsRecommendationsOperations(object):
-    """IoTSecuritySolutionsAnalyticsRecommendationsOperations operations.
+class SecureScoreControlsDefinitionSubscriptionOperations(object):
+    """SecureScoreControlsDefinitionSubscriptionOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -25,7 +25,7 @@ class IoTSecuritySolutionsAnalyticsRecommendationsOperations(object):
     :param config: Configuration of service client.
     :param serializer: An object model serializer.
     :param deserializer: An object model deserializer.
-    :ivar api_version: API version for the operation. Constant value: "2019-08-01".
+    :ivar api_version: API version for the operation. Constant value: "2020-01-01-preview".
     """
 
     models = models
@@ -35,30 +35,23 @@ class IoTSecuritySolutionsAnalyticsRecommendationsOperations(object):
         self._client = client
         self._serialize = serializer
         self._deserialize = deserializer
-        self.api_version = "2019-08-01"
+        self.api_version = "2020-01-01-preview"
 
         self.config = config
 
     def list(
-            self, resource_group_name, solution_name, top=None, custom_headers=None, raw=False, **operation_config):
-        """Security Analytics of a security solution.
+            self, custom_headers=None, raw=False, **operation_config):
+        """Get definition information on all secure score controls in subscription
+        level.
 
-        :param resource_group_name: The name of the resource group within the
-         user's subscription. The name is case insensitive.
-        :type resource_group_name: str
-        :param solution_name: The solution manager name
-        :type solution_name: str
-        :param top: The number of results to retrieve.
-        :type top: int
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of
-         IoTSecurityAggregatedRecommendation
+        :return: An iterator like instance of SecureScoreControlDefinitionItem
         :rtype:
-         ~azure.mgmt.security.models.IoTSecurityAggregatedRecommendationPaged[~azure.mgmt.security.models.IoTSecurityAggregatedRecommendation]
+         ~azure.mgmt.security.models.SecureScoreControlDefinitionItemPaged[~azure.mgmt.security.models.SecureScoreControlDefinitionItem]
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         def prepare_request(next_link=None):
@@ -66,17 +59,13 @@ class IoTSecuritySolutionsAnalyticsRecommendationsOperations(object):
                 # Construct URL
                 url = self.list.metadata['url']
                 path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$'),
-                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str', max_length=90, min_length=1, pattern=r'^[-\w\._\(\)]+$'),
-                    'solutionName': self._serialize.url("solution_name", solution_name, 'str')
+                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str', pattern=r'^[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}$')
                 }
                 url = self._client.format_url(url, **path_format_arguments)
 
                 # Construct parameters
                 query_parameters = {}
                 query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
-                if top is not None:
-                    query_parameters['$top'] = self._serialize.query("top", top, 'int')
 
             else:
                 url = next_link
@@ -112,7 +101,7 @@ class IoTSecuritySolutionsAnalyticsRecommendationsOperations(object):
         header_dict = None
         if raw:
             header_dict = {}
-        deserialized = models.IoTSecurityAggregatedRecommendationPaged(internal_paging, self._deserialize.dependencies, header_dict)
+        deserialized = models.SecureScoreControlDefinitionItemPaged(internal_paging, self._deserialize.dependencies, header_dict)
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Security/iotSecuritySolutions/{solutionName}/analyticsModels/default/aggregatedRecommendations'}
+    list.metadata = {'url': '/subscriptions/{subscriptionId}/providers/Microsoft.Security/secureScoreControlsDefinition'}
