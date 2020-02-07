@@ -123,6 +123,13 @@ class GeoReplicationStatus(str, Enum):
     unavailable = "Unavailable"
 
 
+class BlobRestoreProgressStatus(str, Enum):
+
+    in_progress = "InProgress"
+    complete = "Complete"
+    failed = "Failed"
+
+
 class ProvisioningState(str, Enum):
 
     creating = "Creating"
@@ -249,9 +256,23 @@ class ImmutabilityPolicyUpdateType(str, Enum):
     extend = "extend"
 
 
+class EnabledProtocols(str, Enum):
+
+    smb = "SMB"
+    nfs = "NFS"
+
+
+class RootSquashType(str, Enum):
+
+    no_root_squash = "NoRootSquash"
+    root_squash = "RootSquash"
+    all_squash = "AllSquash"
+
+
 class StorageAccountExpand(str, Enum):
 
     geo_replication_stats = "geoReplicationStats"
+    blob_restore_status = "blobRestoreStatus"
 
 
 class ListKeyExpand(str, Enum):
