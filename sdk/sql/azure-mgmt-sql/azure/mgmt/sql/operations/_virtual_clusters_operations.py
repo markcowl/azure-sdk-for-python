@@ -324,9 +324,7 @@ class VirtualClustersOperations(object):
 
 
     def _update_initial(
-            self, resource_group_name, virtual_cluster_name, family=None, tags=None, custom_headers=None, raw=False, **operation_config):
-        parameters = models.VirtualClusterUpdate(family=family, tags=tags)
-
+            self, resource_group_name, virtual_cluster_name, parameters, custom_headers=None, raw=False, **operation_config):
         # Construct URL
         url = self.update.metadata['url']
         path_format_arguments = {
@@ -375,7 +373,7 @@ class VirtualClustersOperations(object):
         return deserialized
 
     def update(
-            self, resource_group_name, virtual_cluster_name, family=None, tags=None, custom_headers=None, raw=False, polling=True, **operation_config):
+            self, resource_group_name, virtual_cluster_name, parameters, custom_headers=None, raw=False, polling=True, **operation_config):
         """Updates a virtual cluster.
 
         :param resource_group_name: The name of the resource group that
@@ -384,11 +382,8 @@ class VirtualClustersOperations(object):
         :type resource_group_name: str
         :param virtual_cluster_name: The name of the virtual cluster.
         :type virtual_cluster_name: str
-        :param family: If the service has different generations of hardware,
-         for the same SKU, then that can be captured here.
-        :type family: str
-        :param tags: Resource tags.
-        :type tags: dict[str, str]
+        :param parameters: The requested managed instance resource state.
+        :type parameters: ~azure.mgmt.sql.models.VirtualClusterUpdate
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: The poller return type is ClientRawResponse, the
          direct response alongside the deserialized response
@@ -405,8 +400,7 @@ class VirtualClustersOperations(object):
         raw_result = self._update_initial(
             resource_group_name=resource_group_name,
             virtual_cluster_name=virtual_cluster_name,
-            family=family,
-            tags=tags,
+            parameters=parameters,
             custom_headers=custom_headers,
             raw=True,
             **operation_config
