@@ -208,7 +208,7 @@ class AppSkuInfo(Model):
     All required parameters must be populated in order to send to Azure.
 
     :param name: Required. The name of the SKU. Possible values include: 'F1',
-     'S1', 'ST0', 'ST1', 'ST2'
+     'ST0', 'ST1', 'ST2'
     :type name: str or ~azure.mgmt.iotcentral.models.AppSku
     """
 
