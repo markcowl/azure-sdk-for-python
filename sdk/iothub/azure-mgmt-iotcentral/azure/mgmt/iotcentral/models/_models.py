@@ -274,14 +274,6 @@ class AppTemplate(Model):
 
 
 class CloudError(Model):
-    """CloudError.
-    """
-
-    _attribute_map = {
-    }
-
-
-class ErrorDetails(Model):
     """Error details.
 
     Variables are only populated by the server, and will be ignored when
@@ -311,15 +303,15 @@ class ErrorDetails(Model):
     }
 
     def __init__(self, **kwargs):
-        super(ErrorDetails, self).__init__(**kwargs)
+        super(CloudError, self).__init__(**kwargs)
         self.code = None
         self.message = None
         self.target = None
         self.details = kwargs.get('details', None)
 
 
-class ErrorDetailsException(HttpOperationError):
-    """Server responsed with exception of type: 'ErrorDetails'.
+class CloudErrorException(HttpOperationError):
+    """Server responsed with exception of type: 'CloudError'.
 
     :param deserialize: A deserializer
     :param response: Server response to be deserialized.
@@ -327,7 +319,7 @@ class ErrorDetailsException(HttpOperationError):
 
     def __init__(self, deserialize, response, *args):
 
-        super(ErrorDetailsException, self).__init__(deserialize, response, 'ErrorDetails', *args)
+        super(CloudErrorException, self).__init__(deserialize, response, 'CloudError', *args)
 
 
 class ErrorResponseBody(Model):
