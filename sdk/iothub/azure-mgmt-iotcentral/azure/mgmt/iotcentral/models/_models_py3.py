@@ -274,14 +274,6 @@ class AppTemplate(Model):
 
 
 class CloudError(Model):
-    """CloudError.
-    """
-
-    _attribute_map = {
-    }
-
-
-class ErrorDetails(Model):
     """Error details.
 
     Variables are only populated by the server, and will be ignored when
@@ -294,7 +286,7 @@ class ErrorDetails(Model):
     :ivar target: The target of the particular error.
     :vartype target: str
     :param details: A list of additional details about the error.
-    :type details: list[~azure.mgmt.iotcentral.models.ErrorResponseBody]
+    :type details: list[~azure.mgmt.iotcentral.models.CloudErrorResponseBody]
     """
 
     _validation = {
@@ -307,19 +299,19 @@ class ErrorDetails(Model):
         'code': {'key': 'error.code', 'type': 'str'},
         'message': {'key': 'error.message', 'type': 'str'},
         'target': {'key': 'error.target', 'type': 'str'},
-        'details': {'key': 'error.details', 'type': '[ErrorResponseBody]'},
+        'details': {'key': 'error.details', 'type': '[CloudErrorResponseBody]'},
     }
 
     def __init__(self, *, details=None, **kwargs) -> None:
-        super(ErrorDetails, self).__init__(**kwargs)
+        super(CloudError, self).__init__(**kwargs)
         self.code = None
         self.message = None
         self.target = None
         self.details = details
 
 
-class ErrorDetailsException(HttpOperationError):
-    """Server responsed with exception of type: 'ErrorDetails'.
+class CloudErrorException(HttpOperationError):
+    """Server responsed with exception of type: 'CloudError'.
 
     :param deserialize: A deserializer
     :param response: Server response to be deserialized.
@@ -327,10 +319,10 @@ class ErrorDetailsException(HttpOperationError):
 
     def __init__(self, deserialize, response, *args):
 
-        super(ErrorDetailsException, self).__init__(deserialize, response, 'ErrorDetails', *args)
+        super(CloudErrorException, self).__init__(deserialize, response, 'CloudError', *args)
 
 
-class ErrorResponseBody(Model):
+class CloudErrorResponseBody(Model):
     """Details of error response.
 
     Variables are only populated by the server, and will be ignored when
@@ -343,7 +335,7 @@ class ErrorResponseBody(Model):
     :ivar target: The target of the particular error.
     :vartype target: str
     :param details: A list of additional details about the error.
-    :type details: list[~azure.mgmt.iotcentral.models.ErrorResponseBody]
+    :type details: list[~azure.mgmt.iotcentral.models.CloudErrorResponseBody]
     """
 
     _validation = {
@@ -356,11 +348,11 @@ class ErrorResponseBody(Model):
         'code': {'key': 'code', 'type': 'str'},
         'message': {'key': 'message', 'type': 'str'},
         'target': {'key': 'target', 'type': 'str'},
-        'details': {'key': 'details', 'type': '[ErrorResponseBody]'},
+        'details': {'key': 'details', 'type': '[CloudErrorResponseBody]'},
     }
 
     def __init__(self, *, details=None, **kwargs) -> None:
-        super(ErrorResponseBody, self).__init__(**kwargs)
+        super(CloudErrorResponseBody, self).__init__(**kwargs)
         self.code = None
         self.message = None
         self.target = None
