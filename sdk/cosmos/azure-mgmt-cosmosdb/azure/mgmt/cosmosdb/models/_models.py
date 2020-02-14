@@ -812,6 +812,8 @@ class DatabaseAccountCreateUpdateParameters(ARMResourceProperties):
     :param disable_key_based_metadata_write_access: Disable write operations
      on metadata resources (databases, containers, throughput) via account keys
     :type disable_key_based_metadata_write_access: bool
+    :param key_vault_key_uri: The URI of the key vault
+    :type key_vault_key_uri: str
     """
 
     _validation = {
@@ -841,6 +843,7 @@ class DatabaseAccountCreateUpdateParameters(ARMResourceProperties):
         'enable_cassandra_connector': {'key': 'properties.enableCassandraConnector', 'type': 'bool'},
         'connector_offer': {'key': 'properties.connectorOffer', 'type': 'str'},
         'disable_key_based_metadata_write_access': {'key': 'properties.disableKeyBasedMetadataWriteAccess', 'type': 'bool'},
+        'key_vault_key_uri': {'key': 'properties.keyVaultKeyUri', 'type': 'str'},
     }
 
     database_account_offer_type = "Standard"
@@ -859,6 +862,7 @@ class DatabaseAccountCreateUpdateParameters(ARMResourceProperties):
         self.enable_cassandra_connector = kwargs.get('enable_cassandra_connector', None)
         self.connector_offer = kwargs.get('connector_offer', None)
         self.disable_key_based_metadata_write_access = kwargs.get('disable_key_based_metadata_write_access', None)
+        self.key_vault_key_uri = kwargs.get('key_vault_key_uri', None)
 
 
 class DatabaseAccountGetResults(ARMResourceProperties):
@@ -939,6 +943,8 @@ class DatabaseAccountGetResults(ARMResourceProperties):
     :param disable_key_based_metadata_write_access: Disable write operations
      on metadata resources (databases, containers, throughput) via account keys
     :type disable_key_based_metadata_write_access: bool
+    :param key_vault_key_uri: The URI of the key vault
+    :type key_vault_key_uri: str
     """
 
     _validation = {
@@ -977,6 +983,7 @@ class DatabaseAccountGetResults(ARMResourceProperties):
         'enable_cassandra_connector': {'key': 'properties.enableCassandraConnector', 'type': 'bool'},
         'connector_offer': {'key': 'properties.connectorOffer', 'type': 'str'},
         'disable_key_based_metadata_write_access': {'key': 'properties.disableKeyBasedMetadataWriteAccess', 'type': 'bool'},
+        'key_vault_key_uri': {'key': 'properties.keyVaultKeyUri', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -999,6 +1006,7 @@ class DatabaseAccountGetResults(ARMResourceProperties):
         self.enable_cassandra_connector = kwargs.get('enable_cassandra_connector', None)
         self.connector_offer = kwargs.get('connector_offer', None)
         self.disable_key_based_metadata_write_access = kwargs.get('disable_key_based_metadata_write_access', None)
+        self.key_vault_key_uri = kwargs.get('key_vault_key_uri', None)
 
 
 class DatabaseAccountListConnectionStringsResult(Model):
@@ -1157,6 +1165,8 @@ class DatabaseAccountUpdateParameters(Model):
     :param disable_key_based_metadata_write_access: Disable write operations
      on metadata resources (databases, containers, throughput) via account keys
     :type disable_key_based_metadata_write_access: bool
+    :param key_vault_key_uri: The URI of the key vault
+    :type key_vault_key_uri: str
     """
 
     _attribute_map = {
@@ -1173,6 +1183,7 @@ class DatabaseAccountUpdateParameters(Model):
         'enable_cassandra_connector': {'key': 'properties.enableCassandraConnector', 'type': 'bool'},
         'connector_offer': {'key': 'properties.connectorOffer', 'type': 'str'},
         'disable_key_based_metadata_write_access': {'key': 'properties.disableKeyBasedMetadataWriteAccess', 'type': 'bool'},
+        'key_vault_key_uri': {'key': 'properties.keyVaultKeyUri', 'type': 'str'},
     }
 
     def __init__(self, **kwargs):
@@ -1190,6 +1201,7 @@ class DatabaseAccountUpdateParameters(Model):
         self.enable_cassandra_connector = kwargs.get('enable_cassandra_connector', None)
         self.connector_offer = kwargs.get('connector_offer', None)
         self.disable_key_based_metadata_write_access = kwargs.get('disable_key_based_metadata_write_access', None)
+        self.key_vault_key_uri = kwargs.get('key_vault_key_uri', None)
 
 
 class ErrorResponse(Model):
@@ -2429,6 +2441,106 @@ class MongoIndexOptions(Model):
         super(MongoIndexOptions, self).__init__(**kwargs)
         self.expire_after_seconds = kwargs.get('expire_after_seconds', None)
         self.unique = kwargs.get('unique', None)
+
+
+class NotebookWorkspace(ARMProxyResource):
+    """A notebook workspace resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The unique resource identifier of the database account.
+    :vartype id: str
+    :ivar name: The name of the database account.
+    :vartype name: str
+    :ivar type: The type of Azure resource.
+    :vartype type: str
+    :ivar notebook_server_endpoint: Specifies the endpoint of Notebook server.
+    :vartype notebook_server_endpoint: str
+    :ivar status: Status of the notebook workspace. Possible values are:
+     Creating, Online, Deleting, Failed, Updating.
+    :vartype status: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'notebook_server_endpoint': {'readonly': True},
+        'status': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'notebook_server_endpoint': {'key': 'properties.notebookServerEndpoint', 'type': 'str'},
+        'status': {'key': 'properties.status', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NotebookWorkspace, self).__init__(**kwargs)
+        self.notebook_server_endpoint = None
+        self.status = None
+
+
+class NotebookWorkspaceConnectionInfoResult(Model):
+    """The connection info for the given notebook workspace.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar auth_token: Specifies auth token used for connecting to Notebook
+     server (uses token-based auth).
+    :vartype auth_token: str
+    :ivar notebook_server_endpoint: Specifies the endpoint of Notebook server.
+    :vartype notebook_server_endpoint: str
+    """
+
+    _validation = {
+        'auth_token': {'readonly': True},
+        'notebook_server_endpoint': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'auth_token': {'key': 'authToken', 'type': 'str'},
+        'notebook_server_endpoint': {'key': 'notebookServerEndpoint', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NotebookWorkspaceConnectionInfoResult, self).__init__(**kwargs)
+        self.auth_token = None
+        self.notebook_server_endpoint = None
+
+
+class NotebookWorkspaceCreateUpdateParameters(ARMProxyResource):
+    """Parameters to create a notebook workspace resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: The unique resource identifier of the database account.
+    :vartype id: str
+    :ivar name: The name of the database account.
+    :vartype name: str
+    :ivar type: The type of Azure resource.
+    :vartype type: str
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NotebookWorkspaceCreateUpdateParameters, self).__init__(**kwargs)
 
 
 class Operation(Model):
