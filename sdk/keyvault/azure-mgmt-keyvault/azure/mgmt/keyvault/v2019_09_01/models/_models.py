@@ -931,6 +931,9 @@ class VaultPatchProperties(Model):
      functionality is enabled for this key vault. If omitted, assume true as
      default value. Once set to true, cannot be reverted to false.
     :type enable_soft_delete: bool
+    :param soft_delete_retention_in_days: softDelete data retention days. It
+     accepts >=7 and <=90.
+    :type soft_delete_retention_in_days: int
     :param create_mode: The vault's create mode to indicate whether the vault
      need to be recovered or not. Possible values include: 'recover', 'default'
     :type create_mode: str or
@@ -956,6 +959,7 @@ class VaultPatchProperties(Model):
         'enabled_for_disk_encryption': {'key': 'enabledForDiskEncryption', 'type': 'bool'},
         'enabled_for_template_deployment': {'key': 'enabledForTemplateDeployment', 'type': 'bool'},
         'enable_soft_delete': {'key': 'enableSoftDelete', 'type': 'bool'},
+        'soft_delete_retention_in_days': {'key': 'softDeleteRetentionInDays', 'type': 'int'},
         'create_mode': {'key': 'createMode', 'type': 'CreateMode'},
         'enable_purge_protection': {'key': 'enablePurgeProtection', 'type': 'bool'},
         'network_acls': {'key': 'networkAcls', 'type': 'NetworkRuleSet'},
@@ -970,6 +974,7 @@ class VaultPatchProperties(Model):
         self.enabled_for_disk_encryption = kwargs.get('enabled_for_disk_encryption', None)
         self.enabled_for_template_deployment = kwargs.get('enabled_for_template_deployment', None)
         self.enable_soft_delete = kwargs.get('enable_soft_delete', None)
+        self.soft_delete_retention_in_days = kwargs.get('soft_delete_retention_in_days', None)
         self.create_mode = kwargs.get('create_mode', None)
         self.enable_purge_protection = kwargs.get('enable_purge_protection', None)
         self.network_acls = kwargs.get('network_acls', None)
@@ -1009,9 +1014,14 @@ class VaultProperties(Model):
      Resource Manager is permitted to retrieve secrets from the key vault.
     :type enabled_for_template_deployment: bool
     :param enable_soft_delete: Property to specify whether the 'soft delete'
-     functionality is enabled for this key vault. If omitted, assume true as
-     default value. Once set to true, cannot be reverted to false.
+     functionality is enabled for this key vault. If it's not set to any
+     value(true or false) when creating new key vault, it will be set to true
+     by default. Once it's been set to true value, it can NOT be reverted to
+     false. Default value: True .
     :type enable_soft_delete: bool
+    :param soft_delete_retention_in_days: softDelete data retention days. It
+     accepts >=7 and <=90.
+    :type soft_delete_retention_in_days: int
     :param create_mode: The vault's create mode to indicate whether the vault
      need to be recovered or not. Possible values include: 'recover', 'default'
     :type create_mode: str or
@@ -1048,6 +1058,7 @@ class VaultProperties(Model):
         'enabled_for_disk_encryption': {'key': 'enabledForDiskEncryption', 'type': 'bool'},
         'enabled_for_template_deployment': {'key': 'enabledForTemplateDeployment', 'type': 'bool'},
         'enable_soft_delete': {'key': 'enableSoftDelete', 'type': 'bool'},
+        'soft_delete_retention_in_days': {'key': 'softDeleteRetentionInDays', 'type': 'int'},
         'create_mode': {'key': 'createMode', 'type': 'CreateMode'},
         'enable_purge_protection': {'key': 'enablePurgeProtection', 'type': 'bool'},
         'network_acls': {'key': 'networkAcls', 'type': 'NetworkRuleSet'},
@@ -1063,7 +1074,8 @@ class VaultProperties(Model):
         self.enabled_for_deployment = kwargs.get('enabled_for_deployment', None)
         self.enabled_for_disk_encryption = kwargs.get('enabled_for_disk_encryption', None)
         self.enabled_for_template_deployment = kwargs.get('enabled_for_template_deployment', None)
-        self.enable_soft_delete = kwargs.get('enable_soft_delete', None)
+        self.enable_soft_delete = kwargs.get('enable_soft_delete', True)
+        self.soft_delete_retention_in_days = kwargs.get('soft_delete_retention_in_days', None)
         self.create_mode = kwargs.get('create_mode', None)
         self.enable_purge_protection = kwargs.get('enable_purge_protection', None)
         self.network_acls = kwargs.get('network_acls', None)
