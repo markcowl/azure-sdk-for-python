@@ -28,13 +28,13 @@ try:
     from ._models_py3 import BatchAccountRegenerateKeyParameters
     from ._models_py3 import BatchAccountUpdateParameters
     from ._models_py3 import BatchLocationQuota
+    from ._models_py3 import CIFSMountConfiguration
     from ._models_py3 import Certificate
     from ._models_py3 import CertificateBaseProperties
     from ._models_py3 import CertificateCreateOrUpdateParameters
     from ._models_py3 import CertificateReference
     from ._models_py3 import CheckNameAvailabilityParameters
     from ._models_py3 import CheckNameAvailabilityResult
-    from ._models_py3 import CIFSMountConfiguration
     from ._models_py3 import CloudServiceConfiguration
     from ._models_py3 import ContainerConfiguration
     from ._models_py3 import ContainerRegistry
@@ -49,9 +49,9 @@ try:
     from ._models_py3 import LinuxUserConfiguration
     from ._models_py3 import MetadataItem
     from ._models_py3 import MountConfiguration
+    from ._models_py3 import NFSMountConfiguration
     from ._models_py3 import NetworkConfiguration
     from ._models_py3 import NetworkSecurityGroupRule
-    from ._models_py3 import NFSMountConfiguration
     from ._models_py3 import Operation
     from ._models_py3 import OperationDisplay
     from ._models_py3 import Pool
@@ -90,13 +90,13 @@ except (SyntaxError, ImportError):
     from ._models import BatchAccountRegenerateKeyParameters
     from ._models import BatchAccountUpdateParameters
     from ._models import BatchLocationQuota
+    from ._models import CIFSMountConfiguration
     from ._models import Certificate
     from ._models import CertificateBaseProperties
     from ._models import CertificateCreateOrUpdateParameters
     from ._models import CertificateReference
     from ._models import CheckNameAvailabilityParameters
     from ._models import CheckNameAvailabilityResult
-    from ._models import CIFSMountConfiguration
     from ._models import CloudServiceConfiguration
     from ._models import ContainerConfiguration
     from ._models import ContainerRegistry
@@ -111,9 +111,9 @@ except (SyntaxError, ImportError):
     from ._models import LinuxUserConfiguration
     from ._models import MetadataItem
     from ._models import MountConfiguration
+    from ._models import NFSMountConfiguration
     from ._models import NetworkConfiguration
     from ._models import NetworkSecurityGroupRule
-    from ._models import NFSMountConfiguration
     from ._models import Operation
     from ._models import OperationDisplay
     from ._models import Pool
@@ -183,13 +183,13 @@ __all__ = [
     'BatchAccountRegenerateKeyParameters',
     'BatchAccountUpdateParameters',
     'BatchLocationQuota',
+    'CIFSMountConfiguration',
     'Certificate',
     'CertificateBaseProperties',
     'CertificateCreateOrUpdateParameters',
     'CertificateReference',
     'CheckNameAvailabilityParameters',
     'CheckNameAvailabilityResult',
-    'CIFSMountConfiguration',
     'CloudServiceConfiguration',
     'ContainerConfiguration',
     'ContainerRegistry',
@@ -204,9 +204,9 @@ __all__ = [
     'LinuxUserConfiguration',
     'MetadataItem',
     'MountConfiguration',
+    'NFSMountConfiguration',
     'NetworkConfiguration',
     'NetworkSecurityGroupRule',
-    'NFSMountConfiguration',
     'Operation',
     'OperationDisplay',
     'Pool',

@@ -802,6 +802,54 @@ class BatchLocationQuota(Model):
         self.account_quota = None
 
 
+class CIFSMountConfiguration(Model):
+    """Information used to connect to a CIFS file system.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param username: Required. The user to use for authentication against the
+     CIFS file system.
+    :type username: str
+    :param source: Required. The URI of the file system to mount.
+    :type source: str
+    :param relative_mount_path: Required. The relative path on the compute
+     node where the file system will be mounted. All file systems are mounted
+     relative to the Batch mounts directory, accessible via the
+     AZ_BATCH_NODE_MOUNTS_DIR environment variable.
+    :type relative_mount_path: str
+    :param mount_options: Additional command line options to pass to the mount
+     command. These are 'net use' options in Windows and 'mount' options in
+     Linux.
+    :type mount_options: str
+    :param password: Required. The password to use for authentication against
+     the CIFS file system.
+    :type password: str
+    """
+
+    _validation = {
+        'username': {'required': True},
+        'source': {'required': True},
+        'relative_mount_path': {'required': True},
+        'password': {'required': True},
+    }
+
+    _attribute_map = {
+        'username': {'key': 'username', 'type': 'str'},
+        'source': {'key': 'source', 'type': 'str'},
+        'relative_mount_path': {'key': 'relativeMountPath', 'type': 'str'},
+        'mount_options': {'key': 'mountOptions', 'type': 'str'},
+        'password': {'key': 'password', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(CIFSMountConfiguration, self).__init__(**kwargs)
+        self.username = kwargs.get('username', None)
+        self.source = kwargs.get('source', None)
+        self.relative_mount_path = kwargs.get('relative_mount_path', None)
+        self.mount_options = kwargs.get('mount_options', None)
+        self.password = kwargs.get('password', None)
+
+
 class Certificate(ProxyResource):
     """Contains information about a certificate.
 
@@ -1107,54 +1155,6 @@ class CheckNameAvailabilityResult(Model):
         self.name_available = None
         self.reason = None
         self.message = None
-
-
-class CIFSMountConfiguration(Model):
-    """Information used to connect to a CIFS file system.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param username: Required. The user to use for authentication against the
-     CIFS file system.
-    :type username: str
-    :param source: Required. The URI of the file system to mount.
-    :type source: str
-    :param relative_mount_path: Required. The relative path on the compute
-     node where the file system will be mounted. All file systems are mounted
-     relative to the Batch mounts directory, accessible via the
-     AZ_BATCH_NODE_MOUNTS_DIR environment variable.
-    :type relative_mount_path: str
-    :param mount_options: Additional command line options to pass to the mount
-     command. These are 'net use' options in Windows and 'mount' options in
-     Linux.
-    :type mount_options: str
-    :param password: Required. The password to use for authentication against
-     the CIFS file system.
-    :type password: str
-    """
-
-    _validation = {
-        'username': {'required': True},
-        'source': {'required': True},
-        'relative_mount_path': {'required': True},
-        'password': {'required': True},
-    }
-
-    _attribute_map = {
-        'username': {'key': 'username', 'type': 'str'},
-        'source': {'key': 'source', 'type': 'str'},
-        'relative_mount_path': {'key': 'relativeMountPath', 'type': 'str'},
-        'mount_options': {'key': 'mountOptions', 'type': 'str'},
-        'password': {'key': 'password', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(CIFSMountConfiguration, self).__init__(**kwargs)
-        self.username = kwargs.get('username', None)
-        self.source = kwargs.get('source', None)
-        self.relative_mount_path = kwargs.get('relative_mount_path', None)
-        self.mount_options = kwargs.get('mount_options', None)
-        self.password = kwargs.get('password', None)
 
 
 class CloudError(Model):
@@ -1770,6 +1770,42 @@ class MountConfiguration(Model):
         self.azure_file_share_configuration = kwargs.get('azure_file_share_configuration', None)
 
 
+class NFSMountConfiguration(Model):
+    """Information used to connect to an NFS file system.
+
+    All required parameters must be populated in order to send to Azure.
+
+    :param source: Required. The URI of the file system to mount.
+    :type source: str
+    :param relative_mount_path: Required. The relative path on the compute
+     node where the file system will be mounted. All file systems are mounted
+     relative to the Batch mounts directory, accessible via the
+     AZ_BATCH_NODE_MOUNTS_DIR environment variable.
+    :type relative_mount_path: str
+    :param mount_options: Additional command line options to pass to the mount
+     command. These are 'net use' options in Windows and 'mount' options in
+     Linux.
+    :type mount_options: str
+    """
+
+    _validation = {
+        'source': {'required': True},
+        'relative_mount_path': {'required': True},
+    }
+
+    _attribute_map = {
+        'source': {'key': 'source', 'type': 'str'},
+        'relative_mount_path': {'key': 'relativeMountPath', 'type': 'str'},
+        'mount_options': {'key': 'mountOptions', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(NFSMountConfiguration, self).__init__(**kwargs)
+        self.source = kwargs.get('source', None)
+        self.relative_mount_path = kwargs.get('relative_mount_path', None)
+        self.mount_options = kwargs.get('mount_options', None)
+
+
 class NetworkConfiguration(Model):
     """The network configuration for a pool.
 
@@ -1879,42 +1915,6 @@ class NetworkSecurityGroupRule(Model):
         self.source_port_ranges = kwargs.get('source_port_ranges', None)
 
 
-class NFSMountConfiguration(Model):
-    """Information used to connect to an NFS file system.
-
-    All required parameters must be populated in order to send to Azure.
-
-    :param source: Required. The URI of the file system to mount.
-    :type source: str
-    :param relative_mount_path: Required. The relative path on the compute
-     node where the file system will be mounted. All file systems are mounted
-     relative to the Batch mounts directory, accessible via the
-     AZ_BATCH_NODE_MOUNTS_DIR environment variable.
-    :type relative_mount_path: str
-    :param mount_options: Additional command line options to pass to the mount
-     command. These are 'net use' options in Windows and 'mount' options in
-     Linux.
-    :type mount_options: str
-    """
-
-    _validation = {
-        'source': {'required': True},
-        'relative_mount_path': {'required': True},
-    }
-
-    _attribute_map = {
-        'source': {'key': 'source', 'type': 'str'},
-        'relative_mount_path': {'key': 'relativeMountPath', 'type': 'str'},
-        'mount_options': {'key': 'mountOptions', 'type': 'str'},
-    }
-
-    def __init__(self, **kwargs):
-        super(NFSMountConfiguration, self).__init__(**kwargs)
-        self.source = kwargs.get('source', None)
-        self.relative_mount_path = kwargs.get('relative_mount_path', None)
-        self.mount_options = kwargs.get('mount_options', None)
-
-
 class Operation(Model):
     """A REST API operation.
 
@@ -2015,7 +2015,7 @@ class Pool(ProxyResource):
      pool are the same size. For information about available sizes of virtual
      machines for Cloud Services pools (pools created with
      cloudServiceConfiguration), see Sizes for Cloud Services
-     (http://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
+     (https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/).
      Batch supports all Cloud Services VM sizes except ExtraSmall. For
      information about available VM sizes for pools using images from the
      Virtual Machines Marketplace (pools created with
