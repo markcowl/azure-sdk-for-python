@@ -12,12 +12,14 @@
 import uuid
 from msrest.pipeline import ClientRawResponse
 from msrestazure.azure_exceptions import CloudError
+from msrest.polling import LROPoller, NoPolling
+from msrestazure.polling.arm_polling import ARMPolling
 
 from .. import models
 
 
-class BindingsOperations(object):
-    """BindingsOperations operations.
+class CustomDomainsOperations(object):
+    """CustomDomainsOperations operations.
 
     You should not instantiate directly this class, but create a Client instance that will create it for you and attach it as attribute.
 
@@ -39,10 +41,12 @@ class BindingsOperations(object):
 
         self.config = config
 
-    def get(
-            self, resource_group_name, service_name, app_name, binding_name, custom_headers=None, raw=False, **operation_config):
-        """Get a Binding and its properties.
+    def get_async(
+            self, domain_name, resource_group_name, service_name, app_name, custom_headers=None, raw=False, **operation_config):
+        """Get the custom domain of one lifecycle application.
 
+        :param domain_name:
+        :type domain_name: str
         :param resource_group_name: The name of the resource group that
          contains the resource. You can obtain this value from the Azure
          Resource Manager API or the portal.
@@ -51,26 +55,24 @@ class BindingsOperations(object):
         :type service_name: str
         :param app_name: The name of the App resource.
         :type app_name: str
-        :param binding_name: The name of the Binding resource.
-        :type binding_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: BindingResource or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.appplatform.models.BindingResource or
+        :return: CustomDomainResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.appplatform.models.CustomDomainResource or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
-        url = self.get.metadata['url']
+        url = self.get_async.metadata['url']
         path_format_arguments = {
+            'DomainName': self._serialize.url("domain_name", domain_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str'),
-            'appName': self._serialize.url("app_name", app_name, 'str'),
-            'bindingName': self._serialize.url("binding_name", binding_name, 'str')
+            'appName': self._serialize.url("app_name", app_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -99,52 +101,28 @@ class BindingsOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('BindingResource', response)
+            deserialized = self._deserialize('CustomDomainResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    get.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/bindings/{bindingName}'}
+    get_async.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/domains/{domainName}'}
 
-    def create_or_update(
-            self, resource_group_name, service_name, app_name, binding_name, properties=None, custom_headers=None, raw=False, **operation_config):
-        """Create a new Binding or update an exiting Binding.
 
-        :param resource_group_name: The name of the resource group that
-         contains the resource. You can obtain this value from the Azure
-         Resource Manager API or the portal.
-        :type resource_group_name: str
-        :param service_name: The name of the Service resource.
-        :type service_name: str
-        :param app_name: The name of the App resource.
-        :type app_name: str
-        :param binding_name: The name of the Binding resource.
-        :type binding_name: str
-        :param properties: Properties of the Binding resource
-        :type properties:
-         ~azure.mgmt.appplatform.models.BindingResourceProperties
-        :param dict custom_headers: headers that will be added to the request
-        :param bool raw: returns the direct response alongside the
-         deserialized response
-        :param operation_config: :ref:`Operation configuration
-         overrides<msrest:optionsforoperations>`.
-        :return: BindingResource or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.appplatform.models.BindingResource or
-         ~msrest.pipeline.ClientRawResponse
-        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
-        """
-        binding_resource = models.BindingResource(properties=properties)
+    def _create_or_update_async_initial(
+            self, domain_name, resource_group_name, service_name, app_name, properties=None, custom_headers=None, raw=False, **operation_config):
+        domain_resource = models.CustomDomainResource(properties=properties)
 
         # Construct URL
-        url = self.create_or_update.metadata['url']
+        url = self.create_or_update_async.metadata['url']
         path_format_arguments = {
+            'DomainName': self._serialize.url("domain_name", domain_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str'),
-            'appName': self._serialize.url("app_name", app_name, 'str'),
-            'bindingName': self._serialize.url("binding_name", binding_name, 'str')
+            'appName': self._serialize.url("app_name", app_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -164,32 +142,36 @@ class BindingsOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(binding_resource, 'BindingResource')
+        body_content = self._serialize.body(domain_resource, 'CustomDomainResource')
 
         # Construct and send request
         request = self._client.put(url, query_parameters, header_parameters, body_content)
         response = self._client.send(request, stream=False, **operation_config)
 
-        if response.status_code not in [200]:
+        if response.status_code not in [200, 201]:
             exp = CloudError(response)
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
         deserialized = None
+
         if response.status_code == 200:
-            deserialized = self._deserialize('BindingResource', response)
+            deserialized = self._deserialize('CustomDomainResource', response)
+        if response.status_code == 201:
+            deserialized = self._deserialize('CustomDomainResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    create_or_update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/bindings/{bindingName}'}
 
-    def delete(
-            self, resource_group_name, service_name, app_name, binding_name, custom_headers=None, raw=False, **operation_config):
-        """Operation to delete a Binding.
+    def create_or_update_async(
+            self, domain_name, resource_group_name, service_name, app_name, properties=None, custom_headers=None, raw=False, polling=True, **operation_config):
+        """Create or update custom domain of one lifecycle application.
 
+        :param domain_name:
+        :type domain_name: str
         :param resource_group_name: The name of the resource group that
          contains the resource. You can obtain this value from the Azure
          Resource Manager API or the portal.
@@ -198,25 +180,83 @@ class BindingsOperations(object):
         :type service_name: str
         :param app_name: The name of the App resource.
         :type app_name: str
-        :param binding_name: The name of the Binding resource.
-        :type binding_name: str
+        :param properties: Properties of the custom domain resource.
+        :type properties:
+         ~azure.mgmt.appplatform.models.CustomDomainProperties
+        :param dict custom_headers: headers that will be added to the request
+        :param bool raw: The poller return type is ClientRawResponse, the
+         direct response alongside the deserialized response
+        :param polling: True for ARMPolling, False for no polling, or a
+         polling object for personal polling strategy
+        :return: An instance of LROPoller that returns CustomDomainResource or
+         ClientRawResponse<CustomDomainResource> if raw==True
+        :rtype:
+         ~msrestazure.azure_operation.AzureOperationPoller[~azure.mgmt.appplatform.models.CustomDomainResource]
+         or
+         ~msrestazure.azure_operation.AzureOperationPoller[~msrest.pipeline.ClientRawResponse[~azure.mgmt.appplatform.models.CustomDomainResource]]
+        :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
+        """
+        raw_result = self._create_or_update_async_initial(
+            domain_name=domain_name,
+            resource_group_name=resource_group_name,
+            service_name=service_name,
+            app_name=app_name,
+            properties=properties,
+            custom_headers=custom_headers,
+            raw=True,
+            **operation_config
+        )
+
+        def get_long_running_output(response):
+            deserialized = self._deserialize('CustomDomainResource', response)
+
+            if raw:
+                client_raw_response = ClientRawResponse(deserialized, response)
+                return client_raw_response
+
+            return deserialized
+
+        lro_delay = operation_config.get(
+            'long_running_operation_timeout',
+            self.config.long_running_operation_timeout)
+        if polling is True: polling_method = ARMPolling(lro_delay, **operation_config)
+        elif polling is False: polling_method = NoPolling()
+        else: polling_method = polling
+        return LROPoller(self._client, raw_result, get_long_running_output, polling_method)
+    create_or_update_async.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/domains/{domainName}'}
+
+    def delete_async(
+            self, domain_name, resource_group_name, service_name, app_name, custom_headers=None, raw=False, **operation_config):
+        """Delete the custom domain of one lifecycle application.
+
+        :param domain_name:
+        :type domain_name: str
+        :param resource_group_name: The name of the resource group that
+         contains the resource. You can obtain this value from the Azure
+         Resource Manager API or the portal.
+        :type resource_group_name: str
+        :param service_name: The name of the Service resource.
+        :type service_name: str
+        :param app_name: The name of the App resource.
+        :type app_name: str
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: None or ClientRawResponse if raw=true
-        :rtype: None or ~msrest.pipeline.ClientRawResponse
+        :return: CustomDomainResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.appplatform.models.CustomDomainResource or
+         ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
         # Construct URL
-        url = self.delete.metadata['url']
+        url = self.delete_async.metadata['url']
         path_format_arguments = {
+            'DomainName': self._serialize.url("domain_name", domain_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str'),
-            'appName': self._serialize.url("app_name", app_name, 'str'),
-            'bindingName': self._serialize.url("binding_name", binding_name, 'str')
+            'appName': self._serialize.url("app_name", app_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -226,6 +266,7 @@ class BindingsOperations(object):
 
         # Construct headers
         header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
         if self.config.generate_client_request_id:
             header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
         if custom_headers:
@@ -242,15 +283,25 @@ class BindingsOperations(object):
             exp.request_id = response.headers.get('x-ms-request-id')
             raise exp
 
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('CustomDomainResource', response)
+        if response.status_code == 204:
+            deserialized = self._deserialize('CustomDomainResource', response)
+
         if raw:
-            client_raw_response = ClientRawResponse(None, response)
+            client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
-    delete.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/bindings/{bindingName}'}
 
-    def update(
-            self, resource_group_name, service_name, app_name, binding_name, properties=None, custom_headers=None, raw=False, **operation_config):
-        """Operation to update an exiting Binding.
+        return deserialized
+    delete_async.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/domains/{domainName}'}
 
+    def patch_async(
+            self, domain_name, resource_group_name, service_name, app_name, properties=None, custom_headers=None, raw=False, **operation_config):
+        """Update custom domain of one lifecycle application.
+
+        :param domain_name:
+        :type domain_name: str
         :param resource_group_name: The name of the resource group that
          contains the resource. You can obtain this value from the Azure
          Resource Manager API or the portal.
@@ -259,31 +310,29 @@ class BindingsOperations(object):
         :type service_name: str
         :param app_name: The name of the App resource.
         :type app_name: str
-        :param binding_name: The name of the Binding resource.
-        :type binding_name: str
-        :param properties: Properties of the Binding resource
+        :param properties: Properties of the custom domain resource.
         :type properties:
-         ~azure.mgmt.appplatform.models.BindingResourceProperties
+         ~azure.mgmt.appplatform.models.CustomDomainProperties
         :param dict custom_headers: headers that will be added to the request
         :param bool raw: returns the direct response alongside the
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: BindingResource or ClientRawResponse if raw=true
-        :rtype: ~azure.mgmt.appplatform.models.BindingResource or
+        :return: CustomDomainResource or ClientRawResponse if raw=true
+        :rtype: ~azure.mgmt.appplatform.models.CustomDomainResource or
          ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        binding_resource = models.BindingResource(properties=properties)
+        domain_resource = models.CustomDomainResource(properties=properties)
 
         # Construct URL
-        url = self.update.metadata['url']
+        url = self.patch_async.metadata['url']
         path_format_arguments = {
+            'DomainName': self._serialize.url("domain_name", domain_name, 'str'),
             'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
             'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
             'serviceName': self._serialize.url("service_name", service_name, 'str'),
-            'appName': self._serialize.url("app_name", app_name, 'str'),
-            'bindingName': self._serialize.url("binding_name", binding_name, 'str')
+            'appName': self._serialize.url("app_name", app_name, 'str')
         }
         url = self._client.format_url(url, **path_format_arguments)
 
@@ -303,7 +352,7 @@ class BindingsOperations(object):
             header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
         # Construct body
-        body_content = self._serialize.body(binding_resource, 'BindingResource')
+        body_content = self._serialize.body(domain_resource, 'CustomDomainResource')
 
         # Construct and send request
         request = self._client.patch(url, query_parameters, header_parameters, body_content)
@@ -316,19 +365,21 @@ class BindingsOperations(object):
 
         deserialized = None
         if response.status_code == 200:
-            deserialized = self._deserialize('BindingResource', response)
+            deserialized = self._deserialize('CustomDomainResource', response)
 
         if raw:
             client_raw_response = ClientRawResponse(deserialized, response)
             return client_raw_response
 
         return deserialized
-    update.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/bindings/{bindingName}'}
+    patch_async.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/domains/{domainName}'}
 
-    def list(
-            self, resource_group_name, service_name, app_name, custom_headers=None, raw=False, **operation_config):
-        """Handles requests to list all resources in an App.
+    def list_async(
+            self, domain_name, resource_group_name, service_name, app_name, custom_headers=None, raw=False, **operation_config):
+        """List the custom domains of one lifecycle application.
 
+        :param domain_name:
+        :type domain_name: str
         :param resource_group_name: The name of the resource group that
          contains the resource. You can obtain this value from the Azure
          Resource Manager API or the portal.
@@ -342,62 +393,53 @@ class BindingsOperations(object):
          deserialized response
         :param operation_config: :ref:`Operation configuration
          overrides<msrest:optionsforoperations>`.
-        :return: An iterator like instance of BindingResource
-        :rtype:
-         ~azure.mgmt.appplatform.models.BindingResourcePaged[~azure.mgmt.appplatform.models.BindingResource]
+        :return: CustomDomainResourceCollection or ClientRawResponse if
+         raw=true
+        :rtype: ~azure.mgmt.appplatform.models.CustomDomainResourceCollection
+         or ~msrest.pipeline.ClientRawResponse
         :raises: :class:`CloudError<msrestazure.azure_exceptions.CloudError>`
         """
-        def prepare_request(next_link=None):
-            if not next_link:
-                # Construct URL
-                url = self.list.metadata['url']
-                path_format_arguments = {
-                    'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
-                    'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
-                    'serviceName': self._serialize.url("service_name", service_name, 'str'),
-                    'appName': self._serialize.url("app_name", app_name, 'str')
-                }
-                url = self._client.format_url(url, **path_format_arguments)
+        # Construct URL
+        url = self.list_async.metadata['url']
+        path_format_arguments = {
+            'DomainName': self._serialize.url("domain_name", domain_name, 'str'),
+            'subscriptionId': self._serialize.url("self.config.subscription_id", self.config.subscription_id, 'str'),
+            'resourceGroupName': self._serialize.url("resource_group_name", resource_group_name, 'str'),
+            'serviceName': self._serialize.url("service_name", service_name, 'str'),
+            'appName': self._serialize.url("app_name", app_name, 'str')
+        }
+        url = self._client.format_url(url, **path_format_arguments)
 
-                # Construct parameters
-                query_parameters = {}
-                query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
+        # Construct parameters
+        query_parameters = {}
+        query_parameters['api-version'] = self._serialize.query("self.api_version", self.api_version, 'str')
 
-            else:
-                url = next_link
-                query_parameters = {}
+        # Construct headers
+        header_parameters = {}
+        header_parameters['Accept'] = 'application/json'
+        if self.config.generate_client_request_id:
+            header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
+        if custom_headers:
+            header_parameters.update(custom_headers)
+        if self.config.accept_language is not None:
+            header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
 
-            # Construct headers
-            header_parameters = {}
-            header_parameters['Accept'] = 'application/json'
-            if self.config.generate_client_request_id:
-                header_parameters['x-ms-client-request-id'] = str(uuid.uuid1())
-            if custom_headers:
-                header_parameters.update(custom_headers)
-            if self.config.accept_language is not None:
-                header_parameters['accept-language'] = self._serialize.header("self.config.accept_language", self.config.accept_language, 'str')
+        # Construct and send request
+        request = self._client.get(url, query_parameters, header_parameters)
+        response = self._client.send(request, stream=False, **operation_config)
 
-            # Construct and send request
-            request = self._client.get(url, query_parameters, header_parameters)
-            return request
+        if response.status_code not in [200]:
+            exp = CloudError(response)
+            exp.request_id = response.headers.get('x-ms-request-id')
+            raise exp
 
-        def internal_paging(next_link=None):
-            request = prepare_request(next_link)
+        deserialized = None
+        if response.status_code == 200:
+            deserialized = self._deserialize('CustomDomainResourceCollection', response)
 
-            response = self._client.send(request, stream=False, **operation_config)
-
-            if response.status_code not in [200]:
-                exp = CloudError(response)
-                exp.request_id = response.headers.get('x-ms-request-id')
-                raise exp
-
-            return response
-
-        # Deserialize response
-        header_dict = None
         if raw:
-            header_dict = {}
-        deserialized = models.BindingResourcePaged(internal_paging, self._deserialize.dependencies, header_dict)
+            client_raw_response = ClientRawResponse(deserialized, response)
+            return client_raw_response
 
         return deserialized
-    list.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/bindings'}
+    list_async.metadata = {'url': '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.AppPlatform/Spring/{serviceName}/apps/{appName}/domains'}

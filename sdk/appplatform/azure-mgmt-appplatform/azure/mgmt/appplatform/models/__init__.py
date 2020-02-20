@@ -14,10 +14,16 @@ try:
     from ._models_py3 import AppResourceProperties
     from ._models_py3 import BindingResource
     from ._models_py3 import BindingResourceProperties
+    from ._models_py3 import CertificateProperties
+    from ._models_py3 import CertificateResource
+    from ._models_py3 import CertificateResourceCollection
     from ._models_py3 import ClusterResourceProperties
     from ._models_py3 import ConfigServerGitProperty
     from ._models_py3 import ConfigServerProperties
     from ._models_py3 import ConfigServerSettings
+    from ._models_py3 import CustomDomainProperties
+    from ._models_py3 import CustomDomainResource
+    from ._models_py3 import CustomDomainResourceCollection
     from ._models_py3 import DeploymentInstance
     from ._models_py3 import DeploymentResource
     from ._models_py3 import DeploymentResourceProperties
@@ -37,9 +43,13 @@ try:
     from ._models_py3 import ProxyResource
     from ._models_py3 import RegenerateTestKeyRequestPayload
     from ._models_py3 import Resource
+    from ._models_py3 import ResourceTypeSku
+    from ._models_py3 import ResourceTypeSkuCollection
     from ._models_py3 import ResourceUploadDefinition
     from ._models_py3 import ServiceResource
     from ._models_py3 import ServiceSpecification
+    from ._models_py3 import Sku
+    from ._models_py3 import SkuSetting
     from ._models_py3 import TemporaryDisk
     from ._models_py3 import TestKeys
     from ._models_py3 import TraceProperties
@@ -50,10 +60,16 @@ except (SyntaxError, ImportError):
     from ._models import AppResourceProperties
     from ._models import BindingResource
     from ._models import BindingResourceProperties
+    from ._models import CertificateProperties
+    from ._models import CertificateResource
+    from ._models import CertificateResourceCollection
     from ._models import ClusterResourceProperties
     from ._models import ConfigServerGitProperty
     from ._models import ConfigServerProperties
     from ._models import ConfigServerSettings
+    from ._models import CustomDomainProperties
+    from ._models import CustomDomainResource
+    from ._models import CustomDomainResourceCollection
     from ._models import DeploymentInstance
     from ._models import DeploymentResource
     from ._models import DeploymentResourceProperties
@@ -73,9 +89,13 @@ except (SyntaxError, ImportError):
     from ._models import ProxyResource
     from ._models import RegenerateTestKeyRequestPayload
     from ._models import Resource
+    from ._models import ResourceTypeSku
+    from ._models import ResourceTypeSkuCollection
     from ._models import ResourceUploadDefinition
     from ._models import ServiceResource
     from ._models import ServiceSpecification
+    from ._models import Sku
+    from ._models import SkuSetting
     from ._models import TemporaryDisk
     from ._models import TestKeys
     from ._models import TraceProperties
@@ -103,10 +123,16 @@ __all__ = [
     'AppResourceProperties',
     'BindingResource',
     'BindingResourceProperties',
+    'CertificateProperties',
+    'CertificateResource',
+    'CertificateResourceCollection',
     'ClusterResourceProperties',
     'ConfigServerGitProperty',
     'ConfigServerProperties',
     'ConfigServerSettings',
+    'CustomDomainProperties',
+    'CustomDomainResource',
+    'CustomDomainResourceCollection',
     'DeploymentInstance',
     'DeploymentResource',
     'DeploymentResourceProperties',
@@ -126,9 +152,13 @@ __all__ = [
     'ProxyResource',
     'RegenerateTestKeyRequestPayload',
     'Resource',
+    'ResourceTypeSku',
+    'ResourceTypeSkuCollection',
     'ResourceUploadDefinition',
     'ServiceResource',
     'ServiceSpecification',
+    'Sku',
+    'SkuSetting',
     'TemporaryDisk',
     'TestKeys',
     'TraceProperties',
