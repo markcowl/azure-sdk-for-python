@@ -13,11 +13,18 @@ from msrest.serialization import Model
 from msrest.exceptions import HttpOperationError
 
 
-class ErrorResponse(Model):
-    """Error response indicates Insights service is not able to process the
-    incoming request. The reason is provided in the error message.
+class CloudError(Model):
+    """CloudError.
+    """
 
-    :param code: Error code.
+    _attribute_map = {
+    }
+
+
+class ErrorResponse(Model):
+    """Describes the format of Error response.
+
+    :param code: Error code
     :type code: str
     :param message: Error message indicating why the operation failed.
     :type message: str
@@ -28,10 +35,10 @@ class ErrorResponse(Model):
         'message': {'key': 'message', 'type': 'str'},
     }
 
-    def __init__(self, **kwargs):
+    def __init__(self, *, code: str=None, message: str=None, **kwargs) -> None:
         super(ErrorResponse, self).__init__(**kwargs)
-        self.code = kwargs.get('code', None)
-        self.message = kwargs.get('message', None)
+        self.code = code
+        self.message = message
 
 
 class ErrorResponseException(HttpOperationError):
@@ -44,3 +51,24 @@ class ErrorResponseException(HttpOperationError):
     def __init__(self, deserialize, response, *args):
 
         super(ErrorResponseException, self).__init__(deserialize, response, 'ErrorResponse', *args)
+
+
+class TestResultFileResponse(Model):
+    """Test result.
+
+    :param data: File contents.
+    :type data: str
+    :param next_link: The URI that can be used to request the next section of
+     the result file in the event the file is too large for a single request.
+    :type next_link: str
+    """
+
+    _attribute_map = {
+        'data': {'key': 'data', 'type': 'str'},
+        'next_link': {'key': 'nextLink', 'type': 'str'},
+    }
+
+    def __init__(self, *, data: str=None, next_link: str=None, **kwargs) -> None:
+        super(TestResultFileResponse, self).__init__(**kwargs)
+        self.data = data
+        self.next_link = next_link
