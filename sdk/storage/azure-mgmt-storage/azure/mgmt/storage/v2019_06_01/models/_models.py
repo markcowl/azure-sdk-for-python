@@ -467,8 +467,10 @@ class BlobServiceProperties(Resource):
      delete.
     :type delete_retention_policy:
      ~azure.mgmt.storage.v2019_06_01.models.DeleteRetentionPolicy
-    :param automatic_snapshot_policy_enabled: Automatic Snapshot is enabled if
-     set to true.
+    :param is_versioning_enabled: Versioning is enabled if set to true.
+    :type is_versioning_enabled: bool
+    :param automatic_snapshot_policy_enabled: Deprecated in favor of
+     isVersioningEnabled property.
     :type automatic_snapshot_policy_enabled: bool
     :param change_feed: The blob service properties for change feed events.
     :type change_feed: ~azure.mgmt.storage.v2019_06_01.models.ChangeFeed
@@ -494,6 +496,7 @@ class BlobServiceProperties(Resource):
         'cors': {'key': 'properties.cors', 'type': 'CorsRules'},
         'default_service_version': {'key': 'properties.defaultServiceVersion', 'type': 'str'},
         'delete_retention_policy': {'key': 'properties.deleteRetentionPolicy', 'type': 'DeleteRetentionPolicy'},
+        'is_versioning_enabled': {'key': 'properties.isVersioningEnabled', 'type': 'bool'},
         'automatic_snapshot_policy_enabled': {'key': 'properties.automaticSnapshotPolicyEnabled', 'type': 'bool'},
         'change_feed': {'key': 'properties.changeFeed', 'type': 'ChangeFeed'},
         'restore_policy': {'key': 'properties.restorePolicy', 'type': 'RestorePolicyProperties'},
@@ -505,6 +508,7 @@ class BlobServiceProperties(Resource):
         self.cors = kwargs.get('cors', None)
         self.default_service_version = kwargs.get('default_service_version', None)
         self.delete_retention_policy = kwargs.get('delete_retention_policy', None)
+        self.is_versioning_enabled = kwargs.get('is_versioning_enabled', None)
         self.automatic_snapshot_policy_enabled = kwargs.get('automatic_snapshot_policy_enabled', None)
         self.change_feed = kwargs.get('change_feed', None)
         self.restore_policy = kwargs.get('restore_policy', None)
@@ -845,6 +849,91 @@ class Encryption(Model):
         self.services = kwargs.get('services', None)
         self.key_source = kwargs.get('key_source', "Microsoft.Storage")
         self.key_vault_properties = kwargs.get('key_vault_properties', None)
+
+
+class EncryptionScope(Resource):
+    """The Encryption Scope resource.
+
+    Variables are only populated by the server, and will be ignored when
+    sending a request.
+
+    :ivar id: Fully qualified resource Id for the resource. Ex -
+     /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+    :vartype id: str
+    :ivar name: The name of the resource
+    :vartype name: str
+    :ivar type: The type of the resource. Ex-
+     Microsoft.Compute/virtualMachines or Microsoft.Storage/storageAccounts.
+    :vartype type: str
+    :param source: The provider for the encryption scope. Possible values
+     (case-insensitive):  Microsoft.Storage, Microsoft.KeyVault. Possible
+     values include: 'Microsoft.Storage', 'Microsoft.KeyVault'
+    :type source: str or
+     ~azure.mgmt.storage.v2019_06_01.models.EncryptionScopeSource
+    :param state: The state of the encryption scope. Possible values
+     (case-insensitive):  Enabled, Disabled. Possible values include:
+     'Enabled', 'Disabled'
+    :type state: str or
+     ~azure.mgmt.storage.v2019_06_01.models.EncryptionScopeState
+    :ivar creation_time: Gets the creation date and time of the encryption
+     scope in UTC.
+    :vartype creation_time: datetime
+    :ivar last_modified_time: Gets the last modification date and time of the
+     encryption scope in UTC.
+    :vartype last_modified_time: datetime
+    :param key_vault_properties: The key vault properties for the encryption
+     scope. This is a required field if encryption scope 'source' attribute is
+     set to 'Microsoft.KeyVault'.
+    :type key_vault_properties:
+     ~azure.mgmt.storage.v2019_06_01.models.EncryptionScopeKeyVaultProperties
+    """
+
+    _validation = {
+        'id': {'readonly': True},
+        'name': {'readonly': True},
+        'type': {'readonly': True},
+        'creation_time': {'readonly': True},
+        'last_modified_time': {'readonly': True},
+    }
+
+    _attribute_map = {
+        'id': {'key': 'id', 'type': 'str'},
+        'name': {'key': 'name', 'type': 'str'},
+        'type': {'key': 'type', 'type': 'str'},
+        'source': {'key': 'properties.source', 'type': 'str'},
+        'state': {'key': 'properties.state', 'type': 'str'},
+        'creation_time': {'key': 'properties.creationTime', 'type': 'iso-8601'},
+        'last_modified_time': {'key': 'properties.lastModifiedTime', 'type': 'iso-8601'},
+        'key_vault_properties': {'key': 'properties.keyVaultProperties', 'type': 'EncryptionScopeKeyVaultProperties'},
+    }
+
+    def __init__(self, **kwargs):
+        super(EncryptionScope, self).__init__(**kwargs)
+        self.source = kwargs.get('source', None)
+        self.state = kwargs.get('state', None)
+        self.creation_time = None
+        self.last_modified_time = None
+        self.key_vault_properties = kwargs.get('key_vault_properties', None)
+
+
+class EncryptionScopeKeyVaultProperties(Model):
+    """The key vault properties for the encryption scope. This is a required field
+    if encryption scope 'source' attribute is set to 'Microsoft.KeyVault'.
+
+    :param key_uri: The object identifier for a key vault key object. When
+     applied, the encryption scope will use the key referenced by the
+     identifier to enable customer-managed key support on this encryption
+     scope.
+    :type key_uri: str
+    """
+
+    _attribute_map = {
+        'key_uri': {'key': 'keyUri', 'type': 'str'},
+    }
+
+    def __init__(self, **kwargs):
+        super(EncryptionScopeKeyVaultProperties, self).__init__(**kwargs)
+        self.key_uri = kwargs.get('key_uri', None)
 
 
 class EncryptionService(Model):
