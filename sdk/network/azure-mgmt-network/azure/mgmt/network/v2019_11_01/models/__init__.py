@@ -89,8 +89,14 @@ try:
     from ._models_py3 import AzureReachabilityReportLocation
     from ._models_py3 import AzureReachabilityReportParameters
     from ._models_py3 import BackendAddressPool
+    from ._models_py3 import BastionActiveSession
+    from ._models_py3 import BastionActiveSessionListResult
     from ._models_py3 import BastionHost
     from ._models_py3 import BastionHostIPConfiguration
+    from ._models_py3 import BastionSessionState
+    from ._models_py3 import BastionShareableLink
+    from ._models_py3 import BastionShareableLinkListRequest
+    from ._models_py3 import BastionShareableLinkListResult
     from ._models_py3 import BGPCommunity
     from ._models_py3 import BgpPeerStatus
     from ._models_py3 import BgpPeerStatusListResult
@@ -117,6 +123,7 @@ try:
     from ._models_py3 import ConnectionResetSharedKey
     from ._models_py3 import ConnectionSharedKey
     from ._models_py3 import ConnectionStateSnapshot
+    from ._models_py3 import ConnectivityConfiguration
     from ._models_py3 import ConnectivityDestination
     from ._models_py3 import ConnectivityHop
     from ._models_py3 import ConnectivityInformation
@@ -131,6 +138,10 @@ try:
     from ._models_py3 import DdosProtectionPlan
     from ._models_py3 import DdosSettings
     from ._models_py3 import Delegation
+    from ._models_py3 import Deployment
+    from ._models_py3 import DeploymentGroupItem
+    from ._models_py3 import DeploymentResult
+    from ._models_py3 import DeploymentRule
     from ._models_py3 import DeviceProperties
     from ._models_py3 import DhcpOptions
     from ._models_py3 import Dimension
@@ -231,6 +242,7 @@ try:
     from ._models_py3 import NetworkConfigurationDiagnosticProfile
     from ._models_py3 import NetworkConfigurationDiagnosticResponse
     from ._models_py3 import NetworkConfigurationDiagnosticResult
+    from ._models_py3 import NetworkGroup
     from ._models_py3 import NetworkIntentPolicy
     from ._models_py3 import NetworkIntentPolicyConfiguration
     from ._models_py3 import NetworkInterface
@@ -239,6 +251,10 @@ try:
     from ._models_py3 import NetworkInterfaceIPConfiguration
     from ._models_py3 import NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties
     from ._models_py3 import NetworkInterfaceTapConfiguration
+    from ._models_py3 import NetworkManager
+    from ._models_py3 import NetworkManagerGroupItem
+    from ._models_py3 import NetworkManagerPropertiesNetworkManagerScopes
+    from ._models_py3 import NetworkManagerSecurityGroupItem
     from ._models_py3 import NetworkProfile
     from ._models_py3 import NetworkRuleCondition
     from ._models_py3 import NetworkSecurityGroup
@@ -297,6 +313,8 @@ try:
     from ._models_py3 import RouteFilter
     from ._models_py3 import RouteFilterRule
     from ._models_py3 import RouteTable
+    from ._models_py3 import SecurityConfiguration
+    from ._models_py3 import SecurityConfigurationRule
     from ._models_py3 import SecurityGroupNetworkInterface
     from ._models_py3 import SecurityGroupViewParameters
     from ._models_py3 import SecurityGroupViewResult
@@ -310,6 +328,7 @@ try:
     from ._models_py3 import ServiceTagInformation
     from ._models_py3 import ServiceTagInformationPropertiesFormat
     from ._models_py3 import ServiceTagsListResult
+    from ._models_py3 import SessionIds
     from ._models_py3 import Subnet
     from ._models_py3 import SubnetAssociation
     from ._models_py3 import SubResource
@@ -355,6 +374,7 @@ try:
     from ._models_py3 import VirtualWanSecurityProvider
     from ._models_py3 import VirtualWanSecurityProviders
     from ._models_py3 import VirtualWanVpnProfileParameters
+    from ._models_py3 import VM
     from ._models_py3 import VpnClientConfiguration
     from ._models_py3 import VpnClientConnectionHealth
     from ._models_py3 import VpnClientConnectionHealthDetail
@@ -463,8 +483,14 @@ except (SyntaxError, ImportError):
     from ._models import AzureReachabilityReportLocation
     from ._models import AzureReachabilityReportParameters
     from ._models import BackendAddressPool
+    from ._models import BastionActiveSession
+    from ._models import BastionActiveSessionListResult
     from ._models import BastionHost
     from ._models import BastionHostIPConfiguration
+    from ._models import BastionSessionState
+    from ._models import BastionShareableLink
+    from ._models import BastionShareableLinkListRequest
+    from ._models import BastionShareableLinkListResult
     from ._models import BGPCommunity
     from ._models import BgpPeerStatus
     from ._models import BgpPeerStatusListResult
@@ -491,6 +517,7 @@ except (SyntaxError, ImportError):
     from ._models import ConnectionResetSharedKey
     from ._models import ConnectionSharedKey
     from ._models import ConnectionStateSnapshot
+    from ._models import ConnectivityConfiguration
     from ._models import ConnectivityDestination
     from ._models import ConnectivityHop
     from ._models import ConnectivityInformation
@@ -505,6 +532,10 @@ except (SyntaxError, ImportError):
     from ._models import DdosProtectionPlan
     from ._models import DdosSettings
     from ._models import Delegation
+    from ._models import Deployment
+    from ._models import DeploymentGroupItem
+    from ._models import DeploymentResult
+    from ._models import DeploymentRule
     from ._models import DeviceProperties
     from ._models import DhcpOptions
     from ._models import Dimension
@@ -605,6 +636,7 @@ except (SyntaxError, ImportError):
     from ._models import NetworkConfigurationDiagnosticProfile
     from ._models import NetworkConfigurationDiagnosticResponse
     from ._models import NetworkConfigurationDiagnosticResult
+    from ._models import NetworkGroup
     from ._models import NetworkIntentPolicy
     from ._models import NetworkIntentPolicyConfiguration
     from ._models import NetworkInterface
@@ -613,6 +645,10 @@ except (SyntaxError, ImportError):
     from ._models import NetworkInterfaceIPConfiguration
     from ._models import NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties
     from ._models import NetworkInterfaceTapConfiguration
+    from ._models import NetworkManager
+    from ._models import NetworkManagerGroupItem
+    from ._models import NetworkManagerPropertiesNetworkManagerScopes
+    from ._models import NetworkManagerSecurityGroupItem
     from ._models import NetworkProfile
     from ._models import NetworkRuleCondition
     from ._models import NetworkSecurityGroup
@@ -671,6 +707,8 @@ except (SyntaxError, ImportError):
     from ._models import RouteFilter
     from ._models import RouteFilterRule
     from ._models import RouteTable
+    from ._models import SecurityConfiguration
+    from ._models import SecurityConfigurationRule
     from ._models import SecurityGroupNetworkInterface
     from ._models import SecurityGroupViewParameters
     from ._models import SecurityGroupViewResult
@@ -684,6 +722,7 @@ except (SyntaxError, ImportError):
     from ._models import ServiceTagInformation
     from ._models import ServiceTagInformationPropertiesFormat
     from ._models import ServiceTagsListResult
+    from ._models import SessionIds
     from ._models import Subnet
     from ._models import SubnetAssociation
     from ._models import SubResource
@@ -729,6 +768,7 @@ except (SyntaxError, ImportError):
     from ._models import VirtualWanSecurityProvider
     from ._models import VirtualWanSecurityProviders
     from ._models import VirtualWanVpnProfileParameters
+    from ._models import VM
     from ._models import VpnClientConfiguration
     from ._models import VpnClientConnectionHealth
     from ._models import VpnClientConnectionHealthDetail
@@ -768,9 +808,13 @@ from ._paged_models import AzureFirewallFqdnTagPaged
 from ._paged_models import AzureFirewallPaged
 from ._paged_models import BackendAddressPoolPaged
 from ._paged_models import BastionHostPaged
+from ._paged_models import BastionSessionStatePaged
+from ._paged_models import BastionShareableLinkPaged
 from ._paged_models import BgpServiceCommunityPaged
 from ._paged_models import ConnectionMonitorResultPaged
+from ._paged_models import ConnectivityConfigurationPaged
 from ._paged_models import DdosProtectionPlanPaged
+from ._paged_models import DeploymentRulePaged
 from ._paged_models import EndpointServiceResultPaged
 from ._paged_models import ExpressRouteCircuitAuthorizationPaged
 from ._paged_models import ExpressRouteCircuitConnectionPaged
@@ -793,9 +837,11 @@ from ._paged_models import LoadBalancerPaged
 from ._paged_models import LoadBalancingRulePaged
 from ._paged_models import LocalNetworkGatewayPaged
 from ._paged_models import NatGatewayPaged
+from ._paged_models import NetworkGroupPaged
 from ._paged_models import NetworkInterfaceIPConfigurationPaged
 from ._paged_models import NetworkInterfacePaged
 from ._paged_models import NetworkInterfaceTapConfigurationPaged
+from ._paged_models import NetworkManagerPaged
 from ._paged_models import NetworkProfilePaged
 from ._paged_models import NetworkSecurityGroupPaged
 from ._paged_models import NetworkWatcherPaged
@@ -814,6 +860,8 @@ from ._paged_models import RouteFilterPaged
 from ._paged_models import RouteFilterRulePaged
 from ._paged_models import RoutePaged
 from ._paged_models import RouteTablePaged
+from ._paged_models import SecurityConfigurationPaged
+from ._paged_models import SecurityConfigurationRulePaged
 from ._paged_models import SecurityRulePaged
 from ._paged_models import ServiceEndpointPolicyDefinitionPaged
 from ._paged_models import ServiceEndpointPolicyPaged
@@ -871,6 +919,7 @@ from ._network_management_client_enums import (
     AzureFirewallThreatIntelMode,
     AzureFirewallSkuName,
     AzureFirewallSkuTier,
+    BastionConnectProtocol,
     DdosCustomPolicyProtocol,
     DdosCustomPolicyTriggerSensitivityOverride,
     AuthorizationUseStatus,
@@ -894,6 +943,13 @@ from ._network_management_client_enums import (
     LoadDistribution,
     ProbeProtocol,
     LoadBalancerOutboundRuleProtocol,
+    ConnectivityType,
+    GroupConnectivity,
+    SecurityConfigurationRuleProtocol,
+    SecurityConfigurationRuleAccess,
+    SecurityConfigurationRuleDirection,
+    DeploymentRuleAccess,
+    DeploymentRuleDirection,
     NatGatewaySkuName,
     NetworkOperationStatus,
     Access,
@@ -1045,8 +1101,14 @@ __all__ = [
     'AzureReachabilityReportLocation',
     'AzureReachabilityReportParameters',
     'BackendAddressPool',
+    'BastionActiveSession',
+    'BastionActiveSessionListResult',
     'BastionHost',
     'BastionHostIPConfiguration',
+    'BastionSessionState',
+    'BastionShareableLink',
+    'BastionShareableLinkListRequest',
+    'BastionShareableLinkListResult',
     'BGPCommunity',
     'BgpPeerStatus',
     'BgpPeerStatusListResult',
@@ -1073,6 +1135,7 @@ __all__ = [
     'ConnectionResetSharedKey',
     'ConnectionSharedKey',
     'ConnectionStateSnapshot',
+    'ConnectivityConfiguration',
     'ConnectivityDestination',
     'ConnectivityHop',
     'ConnectivityInformation',
@@ -1087,6 +1150,10 @@ __all__ = [
     'DdosProtectionPlan',
     'DdosSettings',
     'Delegation',
+    'Deployment',
+    'DeploymentGroupItem',
+    'DeploymentResult',
+    'DeploymentRule',
     'DeviceProperties',
     'DhcpOptions',
     'Dimension',
@@ -1187,6 +1254,7 @@ __all__ = [
     'NetworkConfigurationDiagnosticProfile',
     'NetworkConfigurationDiagnosticResponse',
     'NetworkConfigurationDiagnosticResult',
+    'NetworkGroup',
     'NetworkIntentPolicy',
     'NetworkIntentPolicyConfiguration',
     'NetworkInterface',
@@ -1195,6 +1263,10 @@ __all__ = [
     'NetworkInterfaceIPConfiguration',
     'NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties',
     'NetworkInterfaceTapConfiguration',
+    'NetworkManager',
+    'NetworkManagerGroupItem',
+    'NetworkManagerPropertiesNetworkManagerScopes',
+    'NetworkManagerSecurityGroupItem',
     'NetworkProfile',
     'NetworkRuleCondition',
     'NetworkSecurityGroup',
@@ -1253,6 +1325,8 @@ __all__ = [
     'RouteFilter',
     'RouteFilterRule',
     'RouteTable',
+    'SecurityConfiguration',
+    'SecurityConfigurationRule',
     'SecurityGroupNetworkInterface',
     'SecurityGroupViewParameters',
     'SecurityGroupViewResult',
@@ -1266,6 +1340,7 @@ __all__ = [
     'ServiceTagInformation',
     'ServiceTagInformationPropertiesFormat',
     'ServiceTagsListResult',
+    'SessionIds',
     'Subnet',
     'SubnetAssociation',
     'SubResource',
@@ -1311,6 +1386,7 @@ __all__ = [
     'VirtualWanSecurityProvider',
     'VirtualWanSecurityProviders',
     'VirtualWanVpnProfileParameters',
+    'VM',
     'VpnClientConfiguration',
     'VpnClientConnectionHealth',
     'VpnClientConnectionHealthDetail',
@@ -1347,6 +1423,8 @@ __all__ = [
     'AzureFirewallPaged',
     'AzureFirewallFqdnTagPaged',
     'BastionHostPaged',
+    'BastionShareableLinkPaged',
+    'BastionSessionStatePaged',
     'DdosProtectionPlanPaged',
     'EndpointServiceResultPaged',
     'ExpressRouteCircuitAuthorizationPaged',
@@ -1371,6 +1449,12 @@ __all__ = [
     'OutboundRulePaged',
     'NetworkInterfacePaged',
     'ProbePaged',
+    'ConnectivityConfigurationPaged',
+    'SecurityConfigurationPaged',
+    'SecurityConfigurationRulePaged',
+    'DeploymentRulePaged',
+    'NetworkGroupPaged',
+    'NetworkManagerPaged',
     'NatGatewayPaged',
     'NetworkInterfaceIPConfigurationPaged',
     'NetworkInterfaceTapConfigurationPaged',
@@ -1452,6 +1536,7 @@ __all__ = [
     'AzureFirewallThreatIntelMode',
     'AzureFirewallSkuName',
     'AzureFirewallSkuTier',
+    'BastionConnectProtocol',
     'DdosCustomPolicyProtocol',
     'DdosCustomPolicyTriggerSensitivityOverride',
     'AuthorizationUseStatus',
@@ -1475,6 +1560,13 @@ __all__ = [
     'LoadDistribution',
     'ProbeProtocol',
     'LoadBalancerOutboundRuleProtocol',
+    'ConnectivityType',
+    'GroupConnectivity',
+    'SecurityConfigurationRuleProtocol',
+    'SecurityConfigurationRuleAccess',
+    'SecurityConfigurationRuleDirection',
+    'DeploymentRuleAccess',
+    'DeploymentRuleDirection',
     'NatGatewaySkuName',
     'NetworkOperationStatus',
     'Access',

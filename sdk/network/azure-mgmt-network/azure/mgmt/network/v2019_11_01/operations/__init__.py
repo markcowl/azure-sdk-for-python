@@ -44,6 +44,12 @@ from ._load_balancer_load_balancing_rules_operations import LoadBalancerLoadBala
 from ._load_balancer_outbound_rules_operations import LoadBalancerOutboundRulesOperations
 from ._load_balancer_network_interfaces_operations import LoadBalancerNetworkInterfacesOperations
 from ._load_balancer_probes_operations import LoadBalancerProbesOperations
+from ._connectivity_configurations_operations import ConnectivityConfigurationsOperations
+from ._security_configurations_operations import SecurityConfigurationsOperations
+from ._security_configuration_rules_operations import SecurityConfigurationRulesOperations
+from ._deployments_operations import DeploymentsOperations
+from ._network_groups_operations import NetworkGroupsOperations
+from ._network_managers_operations import NetworkManagersOperations
 from ._nat_gateways_operations import NatGatewaysOperations
 from ._network_interfaces_operations import NetworkInterfacesOperations
 from ._network_interface_ip_configurations_operations import NetworkInterfaceIPConfigurationsOperations
@@ -136,6 +142,12 @@ __all__ = [
     'LoadBalancerOutboundRulesOperations',
     'LoadBalancerNetworkInterfacesOperations',
     'LoadBalancerProbesOperations',
+    'ConnectivityConfigurationsOperations',
+    'SecurityConfigurationsOperations',
+    'SecurityConfigurationRulesOperations',
+    'DeploymentsOperations',
+    'NetworkGroupsOperations',
+    'NetworkManagersOperations',
     'NatGatewaysOperations',
     'NetworkInterfacesOperations',
     'NetworkInterfaceIPConfigurationsOperations',
