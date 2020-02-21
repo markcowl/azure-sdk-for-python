@@ -931,6 +931,14 @@ class VaultPatchProperties(Model):
      functionality is enabled for this key vault. If omitted, assume true as
      default value. Once set to true, cannot be reverted to false.
     :type enable_soft_delete: bool
+    :param enable_rbac_authorization: Property that controls how data actions
+     are authorized. When true, this key vault uses Role Based Access Control
+     (RBAC) for authorization of data actions, and the access policies are
+     ignored (warning: this is a preview feature). When false, null or absent,
+     this key vault uses the specified access policies, and any policy stored
+     on Azure Resource Manager is ignored. Note that management actions are
+     always authorized with RBAC. Default value: False .
+    :type enable_rbac_authorization: bool
     :param create_mode: The vault's create mode to indicate whether the vault
      need to be recovered or not. Possible values include: 'recover', 'default'
     :type create_mode: str or
@@ -956,6 +964,7 @@ class VaultPatchProperties(Model):
         'enabled_for_disk_encryption': {'key': 'enabledForDiskEncryption', 'type': 'bool'},
         'enabled_for_template_deployment': {'key': 'enabledForTemplateDeployment', 'type': 'bool'},
         'enable_soft_delete': {'key': 'enableSoftDelete', 'type': 'bool'},
+        'enable_rbac_authorization': {'key': 'enableRbacAuthorization', 'type': 'bool'},
         'create_mode': {'key': 'createMode', 'type': 'CreateMode'},
         'enable_purge_protection': {'key': 'enablePurgeProtection', 'type': 'bool'},
         'network_acls': {'key': 'networkAcls', 'type': 'NetworkRuleSet'},
@@ -970,6 +979,7 @@ class VaultPatchProperties(Model):
         self.enabled_for_disk_encryption = kwargs.get('enabled_for_disk_encryption', None)
         self.enabled_for_template_deployment = kwargs.get('enabled_for_template_deployment', None)
         self.enable_soft_delete = kwargs.get('enable_soft_delete', None)
+        self.enable_rbac_authorization = kwargs.get('enable_rbac_authorization', False)
         self.create_mode = kwargs.get('create_mode', None)
         self.enable_purge_protection = kwargs.get('enable_purge_protection', None)
         self.network_acls = kwargs.get('network_acls', None)
@@ -1012,6 +1022,14 @@ class VaultProperties(Model):
      functionality is enabled for this key vault. If omitted, assume true as
      default value. Once set to true, cannot be reverted to false.
     :type enable_soft_delete: bool
+    :param enable_rbac_authorization: Property that controls how data actions
+     are authorized. When true, this key vault uses Role Based Access Control
+     (RBAC) for authorization of data actions, and the access policies are
+     ignored (warning: this is a preview feature). When false, null or absent,
+     this key vault uses the specified access policies, and any policy stored
+     on Azure Resource Manager is ignored. Note that management actions are
+     always authorized with RBAC. Default value: False .
+    :type enable_rbac_authorization: bool
     :param create_mode: The vault's create mode to indicate whether the vault
      need to be recovered or not. Possible values include: 'recover', 'default'
     :type create_mode: str or
@@ -1048,6 +1066,7 @@ class VaultProperties(Model):
         'enabled_for_disk_encryption': {'key': 'enabledForDiskEncryption', 'type': 'bool'},
         'enabled_for_template_deployment': {'key': 'enabledForTemplateDeployment', 'type': 'bool'},
         'enable_soft_delete': {'key': 'enableSoftDelete', 'type': 'bool'},
+        'enable_rbac_authorization': {'key': 'enableRbacAuthorization', 'type': 'bool'},
         'create_mode': {'key': 'createMode', 'type': 'CreateMode'},
         'enable_purge_protection': {'key': 'enablePurgeProtection', 'type': 'bool'},
         'network_acls': {'key': 'networkAcls', 'type': 'NetworkRuleSet'},
@@ -1064,6 +1083,7 @@ class VaultProperties(Model):
         self.enabled_for_disk_encryption = kwargs.get('enabled_for_disk_encryption', None)
         self.enabled_for_template_deployment = kwargs.get('enabled_for_template_deployment', None)
         self.enable_soft_delete = kwargs.get('enable_soft_delete', None)
+        self.enable_rbac_authorization = kwargs.get('enable_rbac_authorization', False)
         self.create_mode = kwargs.get('create_mode', None)
         self.enable_purge_protection = kwargs.get('enable_purge_protection', None)
         self.network_acls = kwargs.get('network_acls', None)
