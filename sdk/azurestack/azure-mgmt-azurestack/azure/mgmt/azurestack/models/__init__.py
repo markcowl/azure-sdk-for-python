@@ -11,6 +11,9 @@
 
 try:
     from ._models_py3 import ActivationKeyResult
+    from ._models_py3 import CloudManifestFileDeploymentData
+    from ._models_py3 import CloudManifestFileProperties
+    from ._models_py3 import CloudManifestFileResponse
     from ._models_py3 import Compatibility
     from ._models_py3 import CustomerSubscription
     from ._models_py3 import DataDiskImage
@@ -36,6 +39,9 @@ try:
     from ._models_py3 import VirtualMachineProductProperties
 except (SyntaxError, ImportError):
     from ._models import ActivationKeyResult
+    from ._models import CloudManifestFileDeploymentData
+    from ._models import CloudManifestFileProperties
+    from ._models import CloudManifestFileResponse
     from ._models import Compatibility
     from ._models import CustomerSubscription
     from ._models import DataDiskImage
@@ -74,6 +80,9 @@ from ._azure_stack_management_client_enums import (
 
 __all__ = [
     'ActivationKeyResult',
+    'CloudManifestFileDeploymentData',
+    'CloudManifestFileProperties',
+    'CloudManifestFileResponse',
     'Compatibility',
     'CustomerSubscription',
     'DataDiskImage',
