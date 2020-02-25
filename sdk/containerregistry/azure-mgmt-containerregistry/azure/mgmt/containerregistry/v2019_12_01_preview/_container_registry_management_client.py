@@ -15,14 +15,9 @@ from msrest import Serializer, Deserializer
 from ._configuration import ContainerRegistryManagementClientConfiguration
 from .operations import RegistriesOperations
 from .operations import Operations
+from .operations import PrivateEndpointConnectionsOperations
 from .operations import ReplicationsOperations
 from .operations import WebhooksOperations
-from .operations import AgentPoolsOperations
-from .operations import RunsOperations
-from .operations import TaskRunsOperations
-from .operations import TasksOperations
-from .operations import ScopeMapsOperations
-from .operations import TokensOperations
 from . import models
 
 
@@ -33,25 +28,15 @@ class ContainerRegistryManagementClient(SDKClient):
     :vartype config: ContainerRegistryManagementClientConfiguration
 
     :ivar registries: Registries operations
-    :vartype registries: azure.mgmt.containerregistry.v2019_06_01_preview.operations.RegistriesOperations
+    :vartype registries: azure.mgmt.containerregistry.v2019_12_01_preview.operations.RegistriesOperations
     :ivar operations: Operations operations
-    :vartype operations: azure.mgmt.containerregistry.v2019_06_01_preview.operations.Operations
+    :vartype operations: azure.mgmt.containerregistry.v2019_12_01_preview.operations.Operations
+    :ivar private_endpoint_connections: PrivateEndpointConnections operations
+    :vartype private_endpoint_connections: azure.mgmt.containerregistry.v2019_12_01_preview.operations.PrivateEndpointConnectionsOperations
     :ivar replications: Replications operations
-    :vartype replications: azure.mgmt.containerregistry.v2019_06_01_preview.operations.ReplicationsOperations
+    :vartype replications: azure.mgmt.containerregistry.v2019_12_01_preview.operations.ReplicationsOperations
     :ivar webhooks: Webhooks operations
-    :vartype webhooks: azure.mgmt.containerregistry.v2019_06_01_preview.operations.WebhooksOperations
-    :ivar agent_pools: AgentPools operations
-    :vartype agent_pools: azure.mgmt.containerregistry.v2019_06_01_preview.operations.AgentPoolsOperations
-    :ivar runs: Runs operations
-    :vartype runs: azure.mgmt.containerregistry.v2019_06_01_preview.operations.RunsOperations
-    :ivar task_runs: TaskRuns operations
-    :vartype task_runs: azure.mgmt.containerregistry.v2019_06_01_preview.operations.TaskRunsOperations
-    :ivar tasks: Tasks operations
-    :vartype tasks: azure.mgmt.containerregistry.v2019_06_01_preview.operations.TasksOperations
-    :ivar scope_maps: ScopeMaps operations
-    :vartype scope_maps: azure.mgmt.containerregistry.v2019_06_01_preview.operations.ScopeMapsOperations
-    :ivar tokens: Tokens operations
-    :vartype tokens: azure.mgmt.containerregistry.v2019_06_01_preview.operations.TokensOperations
+    :vartype webhooks: azure.mgmt.containerregistry.v2019_12_01_preview.operations.WebhooksOperations
 
     :param credentials: Credentials needed for the client to connect to Azure.
     :type credentials: :mod:`A msrestazure Credentials
@@ -68,6 +53,7 @@ class ContainerRegistryManagementClient(SDKClient):
         super(ContainerRegistryManagementClient, self).__init__(self.config.credentials, self.config)
 
         client_models = {k: v for k, v in models.__dict__.items() if isinstance(v, type)}
+        self.api_version = '2019-12-01-preview'
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
@@ -75,19 +61,9 @@ class ContainerRegistryManagementClient(SDKClient):
             self._client, self.config, self._serialize, self._deserialize)
         self.operations = Operations(
             self._client, self.config, self._serialize, self._deserialize)
+        self.private_endpoint_connections = PrivateEndpointConnectionsOperations(
+            self._client, self.config, self._serialize, self._deserialize)
         self.replications = ReplicationsOperations(
             self._client, self.config, self._serialize, self._deserialize)
         self.webhooks = WebhooksOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.agent_pools = AgentPoolsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.runs = RunsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.task_runs = TaskRunsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.tasks = TasksOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.scope_maps = ScopeMapsOperations(
-            self._client, self.config, self._serialize, self._deserialize)
-        self.tokens = TokensOperations(
             self._client, self.config, self._serialize, self._deserialize)
